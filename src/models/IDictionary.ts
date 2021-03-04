@@ -1,3 +1,3 @@
 export interface IDictionary {
-	[index: string]: string;
+	[index: string]: string | number;
 }
