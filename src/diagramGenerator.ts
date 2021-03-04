@@ -2,6 +2,7 @@ import { Helper } from './helper';
 import { ChordDiagram } from './models/chordDiagram';
 import { Instrument } from './models/instrument';
 import { Neck } from './neck';
+import { Barre } from './barres';
 
 export class DiagramGenerator {
 	generate(chord: ChordDiagram, instrument: Instrument): any {
@@ -22,10 +23,22 @@ export class DiagramGenerator {
 			transform: 'translate(13, 13)',
 		});
 
+		// Neck
 		const neck = new Neck();
 		rootElement.appendChild(
 			neck.build(tuning, strings, frets, capo, fretsOnChord, baseFret)
 		);
+
+		// Barres
+		if (chord.barres) {
+			chord.barres.forEach((value, index) => {
+				const barre = new Barre();
+				rootElement.appendChild(
+					barre.build(index,chord,value)
+				);
+			});
+		}
+
 		svg.appendChild(rootElement);
 
 		return svg;

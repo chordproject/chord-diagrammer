@@ -21,31 +21,86 @@ export class Neck {
 		capo: boolean,
 		fretsOnChord: number,
 		baseFret: number
-	) {
+	): SVGElement {
 		var neckElement = Helper.createSVGElement('g');
 
-		var pathElement = Helper.createSVGElement('path', {
-			stroke: '#444',
-			strokeWidth: '0.25',
-			strokeLinecap: 'square',
-			d: this.getNeckPath(strings, fretsOnChord),
-		});
+		// grid
+		var pathElement = Helper.createSVGElement(
+			'path',
+			{
+				stroke: '#444',
+				strokeWidth: '0.25',
+				strokeLinecap: 'square',
+				d: this.getNeckPath(strings, fretsOnChord),
+			},
+			true
+		);
 		neckElement.appendChild(pathElement);
+
+		// base fret
+		let baseFretElement: SVGElement;
+		if (baseFret === 1) {
+			baseFretElement = Helper.createSVGElement(
+				'path',
+				{
+					stroke: '#444',
+					strokeWidth: '2',
+					strokeLinecap: 'round',
+					strokeLinejoin: 'round',
+					d: `M ${this.offsets[strings].x} 0 H ${this.offsets[strings].length}`,
+				},
+				true
+			);
+		} else {
+			var textElement = Helper.createSVGElement(
+				'text',
+				{
+					fontSize: '0.25rem',
+					fill: '#444',
+					fontFamily: 'Verdana',
+					x: this.getBarreOffset(strings, frets, baseFret, capo),
+					y: '8',
+				},
+				true
+			);
+			baseFretElement = Helper.appendTextNode(textElement, baseFret + 'fr');
+		}
+		neckElement.appendChild(baseFretElement);
+
+		// string tuning names
+		var tuningGroupElement = Helper.createSVGElement('g');
+		tuning.forEach((note, index) => {
+			var textElement = Helper.createSVGElement(
+				'text',
+				{
+					key: index,
+					fontSize: '0.3rem',
+					fill: '#444',
+					fontFamily: 'Verdana',
+					textAnchor: 'middle',
+					x: this.offsets[strings].x + index * 10,
+					y: '53',
+				},
+				true
+			);
+			tuningGroupElement.appendChild(Helper.appendTextNode(textElement, note));
+		});
+		neckElement.appendChild(tuningGroupElement);
 
 		return neckElement;
 	}
 
-	private getNeckHorizonalLine(pos: number, strings: number) {
+	private getNeckHorizonalLine(pos: number, strings: number): string {
 		return `M ${this.offsets[strings].x} ${12 * pos} H ${
 			this.offsets[strings].length
 		}`;
 	}
 
-	private getNeckVerticalLine(pos: number, strings: number) {
+	private getNeckVerticalLine(pos: number, strings: number): string {
 		return `M ${this.offsets[strings].y + pos * 10} 0 V 48`;
 	}
 
-	private getNeckPath(strings: number, fretsOnChord: number) {
+	private getNeckPath(strings: number, fretsOnChord: number): string {
 		return Array.apply(null, Array(fretsOnChord + 1))
 			.map((_: any, pos: number) => this.getNeckHorizonalLine(pos, strings))
 			.join(' ')
@@ -61,7 +116,7 @@ export class Neck {
 		frets: number[],
 		baseFret: number,
 		capo: boolean
-	) {
+	): number {
 		return strings === 6
 			? frets[0] === 1 || capo
 				? baseFret > 9
