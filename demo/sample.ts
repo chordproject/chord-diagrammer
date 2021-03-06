@@ -1,11 +1,10 @@
-import { DiagramGenerator } from '../src/diagramGenerator';
+import { Diagrammer } from '../src/diagrammer';
 
 // chordSample
 const chord = {
-	frets: [4, 2, 1, 1, -1, -1],
-	fingers: [4, 2, 1, 1, 0, 0],
-	barres: [1],
-	baseFret: 10,
+	frets: [1, 3, 3, 1, 0, -1],
+	fingers: [1, 3, 3, 1, 0,0],
+	barres: [1, 3],
 	capo: true,
 };
 const instrument = {
@@ -18,11 +17,11 @@ const instrument = {
 	},
 };
 
-const generator = new DiagramGenerator();
-var svg = generator.generate(chord, instrument);
+const generator = new Diagrammer();
+var svg = generator.builder(chord, instrument);
 document.body.appendChild(svg);
 console.log(svg);
 
 var s = new XMLSerializer();
 var str = s.serializeToString(svg);
-console.log(str);
+//console.log(str);

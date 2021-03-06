@@ -7,9 +7,9 @@ module.exports = {
 	},
 	plugins: [new CleanWebpackPlugin()],
 	output: {
-		filename: 'chordproject-diagram-generator.bundle.js',
+		filename: 'chordproject-diagrammer.bundle.js',
 		path: path.resolve(__dirname, 'dist'),
-		library: 'ChordProjectDiagramGenerator',
+		library: 'ChordProjectDiagrammer',
 		libraryTarget: 'umd',
 	},
 	module: {
