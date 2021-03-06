@@ -1,1 +1,1 @@
-export { DiagramGenerator as Main } from './diagramGenerator';
+export { Diagrammer } from './diagrammer';

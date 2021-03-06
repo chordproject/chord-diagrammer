@@ -1,4 +1,4 @@
-# ChordProject Diagram generator
+# ChordProject Diagrammer
 
 A JavaScript frontend library for generating SVG chord diagrams from JSON specification.
 
