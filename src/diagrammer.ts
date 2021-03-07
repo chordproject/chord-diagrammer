@@ -1,60 +1,77 @@
-import { Helper } from './helper';
-import { ChordDiagram } from './models/chordDiagram';
-import { Instrument } from './models/instrument';
-import { Neck } from './neck';
-import { Barre } from './barre';
-import { Dot } from './dot';
+import { Helper } from "./helper";
+import { ChordDiagram } from "./models/chordDiagram";
+import { Instrument } from "./models/instrument";
+import { Neck } from "./neck";
+import { Barre } from "./barre";
+import { Dot } from "./dot";
+import { Settings } from "./settings";
 
 export class Diagrammer {
-	builder(chord: ChordDiagram, instrument: Instrument): SVGElement {
-		var tuning = instrument.tunings.standard;
-		var strings = instrument.strings;
-		var frets = chord.frets;
-		var capo = chord.capo;
-		var fretsOnChord = instrument.fretsOnChord;
-		var baseFret = chord.baseFret ? chord.baseFret : 1;
+  private _settings: Settings;
+  constructor(settings: Settings = null) {
+    if (!settings) {
+      settings = new Settings();
+    }
 
-		var svg = Helper.createSVGElement('svg', {
-			width: '100%',
-			preserveAspectRatio: 'xMinYMin meet',
-			viewBox: '0 0 80 70',
-		});
+    this._settings = settings;
+  }
 
-		var rootElement = Helper.createSVGElement('g', {
-			transform: 'translate(13, 13)',
-		});
+  builder(chord: ChordDiagram, instrument: Instrument): SVGElement {
+    var tuning = instrument.tunings.standard;
+    var stringsCount = instrument.strings;
+    var frets = chord.frets;
+    var fretsOnChord = instrument.fretsOnChord;
+    var baseFret = chord.baseFret ? chord.baseFret : 1;
 
-		// Neck
-		const neck = new Neck();
-		rootElement.appendChild(
-			neck.build(tuning, strings, frets, capo, fretsOnChord, baseFret)
-		);
+    var svg = Helper.createSVGElement("svg", {
+      width: "100%",
+      preserveAspectRatio: "xMinYMin meet",
+      viewBox: `0 0 ${8* this._settings.spacing.stringSpace} ${
+        6 * this._settings.spacing.fretSpace
+      }`,
+    });
 
-		// Barres
-		if (chord.barres) {
-			chord.barres.forEach((value, index) => {
-				const barre = new Barre();
-				rootElement.appendChild(barre.build(index, chord, value));
-			});
-		}
+    var rootElement = Helper.createSVGElement("g", {
+      transform: "translate(13, 13)",
+    });
 
-		// Dots
-		this.onlyDots(chord).forEach((fret) => {
-			const dot = new Dot();
-			const finger = chord.fingers ? chord.fingers[fret.position] : null;
-			rootElement.appendChild(
-				dot.build(fret.position, fret.value, instrument.strings, finger)
-			);
-		});
+    // Neck
+    const neck = new Neck(this._settings.neck, this._settings.spacing);
+    rootElement.appendChild(
+      neck.build(tuning, stringsCount, frets, fretsOnChord, baseFret)
+    );
 
-		svg.appendChild(rootElement);
+    // Barres
+    if (chord.barres.length > 0) {
+      const barresData = chord.barres;
+      barresData.forEach((barreData) => {
+        const barre = new Barre(this._settings.dot, this._settings.spacing);
+        rootElement.appendChild(
+          barre.build(
+            barreData.fret,
+            barreData.startString,
+            barreData.endString
+          )
+        );
+      });
+    }
 
-		return svg;
-	}
+    // Dots
+    this.onlyDots(chord).forEach((dotData) => {
+      const dot = new Dot(this._settings.dot, this._settings.spacing);
+      const finger = chord.fingers ? chord.fingers[dotData.fret] : null;
+      rootElement.appendChild(
+        dot.build(dotData.fret, dotData.value, finger, chord.baseFret === 1)
+      );
+    });
 
-	private onlyDots(chord: ChordDiagram) {
-		return chord.frets
-			.map((f, index) => ({ position: index, value: f }))
-			.filter((f) => !chord.barres || chord.barres.indexOf(f.value) === -1);
-	}
+    svg.appendChild(rootElement);
+
+    return svg;
+  }
+
+  private onlyDots(chord: ChordDiagram) {
+    let dots = chord.frets.map((f, index) => ({ fret: index, value: f }));
+    return dots;
+  }
 }

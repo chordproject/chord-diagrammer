@@ -1,20 +1,20 @@
-import { Diagrammer } from '../src/diagrammer';
+import { Diagrammer } from "../src/diagrammer";
+import { ChordDiagram } from "../src/models/chordDiagram";
 
 // chordSample
-const chord = {
-	frets: [1, 3, 3, 1, 0, -1],
-	fingers: [1, 3, 3, 1, 0,0],
-	barres: [1, 3],
-	capo: true,
-};
+const chord = new ChordDiagram(); 
+chord.frets = [-1, 1, 3, 3, 1, 1];
+chord.fingers = [0, 1, 2, 3, 1, 1];
+chord.baseFret = 1
+
 const instrument = {
-	strings: 6,
-	fretsOnChord: 4,
-	name: 'Guitar',
-	keys: [],
-	tunings: {
-		standard: ['E', 'A', 'D', 'G', 'B', 'E'],
-	},
+  strings: 6,
+  fretsOnChord: 4,
+  name: "Guitar",
+  keys: [],
+  tunings: {
+    standard: ["E", "A", "D", "G", "B", "E"],
+  },
 };
 
 const generator = new Diagrammer();
