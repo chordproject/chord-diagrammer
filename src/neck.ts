@@ -88,6 +88,7 @@ export class Neck {
             fill: this._settings.neck.stringNameColor,
             fontFamily: this._settings.neck.fontFamily,
             textAnchor: "middle",
+            dominantBaseline: "hanging",
             x: index * this._settings.spacing.stringSpace,
             y:
               4 * this._settings.spacing.fretSpace +
