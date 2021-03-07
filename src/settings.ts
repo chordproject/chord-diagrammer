@@ -18,25 +18,26 @@ export interface NeckSettings {
   stringWidth: number;
   baseFretFontColor: string;
   baseFretFontSize: string;
+  baseFretMargin: number;
   nutColor: string;
+  nutWidth: number;
   showStringNames: boolean;
   stringNameColor: string;
   stringNameFontSize: string;
   stringNameMargin: number;
   fontFamily: string;
+  useRomanBaseFret: boolean;
 }
 
 export interface SpacingSettings {
   stringSpace: number;
   fretSpace: number;
-  nutWidth: number;
 }
 
 export class Settings {
   spacing: SpacingSettings = {
     stringSpace: 10,
     fretSpace: 14,
-    nutWidth: 2,
   };
   dot: DotSettings = {
     color: "#FDD96F",
@@ -46,7 +47,7 @@ export class Settings {
     fontSize: "0.25rem",
     fontColor: "#000",
     openStringRadius: 2,
-    mutedStringFontSize: "0.5rem",
+    mutedStringFontSize: "0.4rem",
     stringInfoColor: "#444",
     stringInfoMargin: 2,
     fontFamily: "Verdana",
@@ -57,11 +58,14 @@ export class Settings {
     stringWidth: 0.3,
     baseFretFontColor: "#444",
     baseFretFontSize: "0.25rem",
+    baseFretMargin: 2,
     nutColor: "#444",
-    showStringNames: true,
+    nutWidth: 2,
+    showStringNames: false,
     stringNameColor: "#444",
     stringNameFontSize: "0.20rem",
     stringNameMargin: 5,
     fontFamily: "Verdana",
+    useRomanBaseFret: true,
   };
 }

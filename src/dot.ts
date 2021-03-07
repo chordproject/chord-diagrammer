@@ -1,33 +1,35 @@
 import { Helper } from "./helper";
-import { DotSettings, SpacingSettings } from "./settings";
+import { Settings } from "./settings";
 
 export class Dot {
-  private _settings: DotSettings;
-  private _spacingSettings: SpacingSettings;
+  private _settings: Settings;
 
-	constructor(settings:DotSettings, spacingSettings:SpacingSettings) {
-		this._settings = settings;
-    this._spacingSettings = spacingSettings;
-	}
+  constructor(settings: Settings) {
+    this._settings = settings;
+  }
 
   build(
     index: number,
     fret: number,
     finger: number,
-    hasNut:boolean,
+    hasNut: boolean
   ): SVGElement {
-    const circleX = index * this._spacingSettings.stringSpace;
-    const circleY = fret * this._spacingSettings.fretSpace - (this._spacingSettings.fretSpace/2);
+    const circleX = index * this._settings.spacing.stringSpace;
+    const circleY =
+      fret * this._settings.spacing.fretSpace -
+      this._settings.spacing.fretSpace / 2;
     if (fret === -1) {
       var textElement = Helper.createSVGElement(
         "text",
         {
-          fontSize: this._settings.mutedStringFontSize,
-          fill: this._settings.stringInfoColor,
-          fontFamily: this._settings.fontFamily,
+          fontSize: this._settings.dot.mutedStringFontSize,
+          fill: this._settings.dot.stringInfoColor,
+          fontFamily: this._settings.dot.fontFamily,
           textAnchor: "middle",
           x: circleX,
-          y: hasNut? -this._spacingSettings.nutWidth -this._settings.stringInfoMargin: -this._settings.stringInfoMargin,
+          y: hasNut
+            ? -this._settings.neck.nutWidth - this._settings.dot.stringInfoMargin
+            : -this._settings.dot.stringInfoMargin,
         },
         true
       );
@@ -38,12 +40,19 @@ export class Dot {
       var circleElement = Helper.createSVGElement(
         "circle",
         {
-          strokeWidth: this._settings.strokeWidth,
-          stroke: this._settings.strokeColor,
-          fill: fret === 0 ? "transparent" : this._settings.color,
+          strokeWidth: this._settings.dot.strokeWidth,
+          stroke: this._settings.dot.strokeColor,
+          fill: fret === 0 ? "transparent" : this._settings.dot.color,
           cx: circleX,
-          cy: fret === 0 ? -this._settings.openStringRadius -this._settings.stringInfoMargin : circleY,
-          r: fret === 0 ? this._settings.openStringRadius : this._settings.radius,
+          cy:
+            fret === 0
+              ? -this._settings.dot.openStringRadius -
+                this._settings.dot.stringInfoMargin
+              : circleY,
+          r:
+            fret === 0
+              ? this._settings.dot.openStringRadius
+              : this._settings.dot.radius,
         },
         true
       );
@@ -53,11 +62,11 @@ export class Dot {
         var text2Element = Helper.createSVGElement(
           "text",
           {
-            fontSize: this._settings.fontSize,
-            fontFamily: this._settings.fontFamily,
+            fontSize: this._settings.dot.fontSize,
+            fontFamily: this._settings.dot.fontFamily,
             textAnchor: "middle",
-            "dominant-baseline":"middle",
-            fill: this._settings.fontColor,
+            dominantBaseline: "middle",
+            fill: this._settings.dot.fontColor,
             x: circleX,
             y: circleY + 0.2,
           },

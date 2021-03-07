@@ -23,12 +23,19 @@ export class Diagrammer {
     var fretsOnChord = instrument.fretsOnChord;
     var baseFret = chord.baseFret ? chord.baseFret : 1;
 
+    const viewBoxNegativeWidth = -(this._settings.neck.baseFretMargin);
+    const viewBoxWidth = 7 * this._settings.spacing.stringSpace;
+      
+    const viewBoxNegativeHeight = 10 - (this._settings.neck.nutWidth + this._settings.dot.stringInfoMargin + this._settings.dot.openStringRadius);
+    const viewBoxHeight = this._settings.neck.showStringNames
+      ? 6 * this._settings.spacing.fretSpace +
+        this._settings.neck.stringNameMargin
+      : 5 * this._settings.spacing.fretSpace;
+
     var svg = Helper.createSVGElement("svg", {
       width: "100%",
       preserveAspectRatio: "xMinYMin meet",
-      viewBox: `0 0 ${8* this._settings.spacing.stringSpace} ${
-        6 * this._settings.spacing.fretSpace
-      }`,
+      viewBox: `${viewBoxNegativeWidth} ${viewBoxNegativeHeight} ${viewBoxWidth} ${viewBoxHeight}`,
     });
 
     var rootElement = Helper.createSVGElement("g", {
@@ -36,16 +43,16 @@ export class Diagrammer {
     });
 
     // Neck
-    const neck = new Neck(this._settings.neck, this._settings.spacing);
+    const neck = new Neck(this._settings);
     rootElement.appendChild(
-      neck.build(tuning, stringsCount, frets, fretsOnChord, baseFret)
+      neck.build(tuning, stringsCount, fretsOnChord, baseFret)
     );
 
     // Barres
     if (chord.barres.length > 0) {
       const barresData = chord.barres;
       barresData.forEach((barreData) => {
-        const barre = new Barre(this._settings.dot, this._settings.spacing);
+        const barre = new Barre(this._settings);
         rootElement.appendChild(
           barre.build(
             barreData.fret,
@@ -58,7 +65,7 @@ export class Diagrammer {
 
     // Dots
     this.onlyDots(chord).forEach((dotData) => {
-      const dot = new Dot(this._settings.dot, this._settings.spacing);
+      const dot = new Dot(this._settings);
       const finger = chord.fingers ? chord.fingers[dotData.fret] : null;
       rootElement.appendChild(
         dot.build(dotData.fret, dotData.value, finger, chord.baseFret === 1)

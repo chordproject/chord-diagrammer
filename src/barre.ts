@@ -1,13 +1,11 @@
 import { Helper } from "./helper";
-import { DotSettings, SpacingSettings } from "./settings";
+import { Settings } from "./settings";
 
 export class Barre {
-  private _settings: DotSettings;
-  private _spacingSettings: SpacingSettings;
+  private _settings: Settings;
 
-  constructor(settings:DotSettings, spacingSettings:SpacingSettings) {
+  constructor(settings:Settings) {
     this._settings = settings;
-    this._spacingSettings = spacingSettings;
   }
 
   build(
@@ -18,19 +16,19 @@ export class Barre {
     const width = (stringEnd - stringStart) * 10;
 
     var barreElement = Helper.createSVGElement("g");
-    const rectX = index * this._spacingSettings.stringSpace;
-    const rectY = stringStart * this._spacingSettings.fretSpace - (this._spacingSettings.fretSpace/2) - this._settings.radius;
+    const rectX = stringStart * this._settings.spacing.stringSpace;
+    const rectY =  index * this._settings.spacing.fretSpace - (this._settings.spacing.fretSpace/2) - this._settings.dot.radius;
     // barre rectangle
     var rectangleElement = Helper.createSVGElement(
       "rect",
       {
-        strokeWidth: this._settings.strokeWidth,
-        stroke: this._settings.strokeColor,
-        fill: this._settings.color,
+        strokeWidth: this._settings.dot.strokeWidth,
+        stroke: this._settings.dot.strokeColor,
+        fill: this._settings.dot.color,
         x: rectX,
         y: rectY,
         width: width,
-        height: 2*this._settings.radius
+        height: 2*this._settings.dot.radius
       },
       true
     );
