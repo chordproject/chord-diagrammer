@@ -1,12 +1,13 @@
 # ChordProject Diagrammer
 
-A JavaScript frontend library for generating SVG chord diagrams from JSON specification.
+A TypeScript frontend library for generating SVG chord diagrams from JSON specification.
 
 Inspired by: https://github.com/tombatossals/react-chords.
-Adaptation for Typescript
+* Typescript adaptation
+* Remove lite mode
 
 ## Overview
 
-Generates chord SVG diagrams acording with specification received.
+Generates SVG chord diagrams according to received specification.
 
 #### Part of [ChordProject](https://chordproject.com/)
