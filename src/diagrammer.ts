@@ -19,27 +19,29 @@ export class Diagrammer {
   builder(chord: ChordDiagram, instrument: Instrument): SVGElement {
     var tuning = instrument.tunings.standard;
     var stringsCount = instrument.strings;
-    var frets = chord.frets;
     var fretsOnChord = instrument.fretsOnChord;
-    var baseFret = chord.baseFret ? chord.baseFret : 1;
+    var baseFret = chord.baseFret > 0? chord.baseFret : 1;
 
-    const viewBoxNegativeWidth = -(this._settings.neck.baseFretMargin);
-    const viewBoxWidth = 7 * this._settings.spacing.stringSpace;
-      
-    const viewBoxNegativeHeight = 10 - (this._settings.neck.nutWidth + this._settings.dot.stringInfoMargin + this._settings.dot.openStringRadius);
-    const viewBoxHeight = this._settings.neck.showStringNames
-      ? 6 * this._settings.spacing.fretSpace +
-        this._settings.neck.stringNameMargin
-      : 5 * this._settings.spacing.fretSpace;
+    const baseBoxWidth = (stringsCount-1) * this._settings.spacing.stringSpace + (2 * this._settings.dot.radius);
+    const baseFretTextWidth = baseFret <= 1 ? 0 : 9 + this._settings.neck.baseFretMargin;
+    const viewBoxWidth =  baseBoxWidth + baseFretTextWidth;
+
+    const baseBoxHeight = fretsOnChord * this._settings.spacing.fretSpace;
+    const stringNamesHeight = !this._settings.neck.showStringNames? 0 : 10 + this._settings.neck.stringNameMargin;
+    const nutHeight = baseFret > 1? 0: this._settings.neck.nutWidth;
+    const stringInfoHeight = 4 + this._settings.dot.openStringRadius + this._settings.dot.stringInfoMargin;
+    const viewBoxHeight = baseBoxHeight + stringNamesHeight + nutHeight + stringInfoHeight;
 
     var svg = Helper.createSVGElement("svg", {
       width: "100%",
       preserveAspectRatio: "xMinYMin meet",
-      viewBox: `${viewBoxNegativeWidth} ${viewBoxNegativeHeight} ${viewBoxWidth} ${viewBoxHeight}`,
+      viewBox: `0 0 ${viewBoxWidth} ${viewBoxHeight}`,
     });
 
+    const translateX = baseFretTextWidth + this._settings.dot.radius;
+    const translateY = nutHeight + stringInfoHeight;
     var rootElement = Helper.createSVGElement("g", {
-      transform: "translate(13, 13)",
+      transform: `translate(${translateX}, ${translateY})`,
     });
 
     // Neck

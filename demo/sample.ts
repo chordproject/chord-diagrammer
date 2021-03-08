@@ -3,9 +3,9 @@ import { ChordDiagram } from "../src/models/chordDiagram";
 
 // chordSample
 const chord = new ChordDiagram();
-chord.frets = [-1,3,2,3,2,3];
-chord.fingers = [0,2,1,3,1,4];
-chord.baseFret = 1;
+chord.frets = [1,2,1,2,1,2];
+chord.fingers = [1,2,1,3,1,4];
+chord.baseFret = 13;
 
 const instrument = {
   strings: 6,
