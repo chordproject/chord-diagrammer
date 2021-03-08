@@ -14,7 +14,8 @@ Inspired by: https://github.com/tombatossals/react-chords.
 ## Overview
 
 Generates SVG chord diagrams according to received specification.
-![alt diagrams](./diagrammer.png)
+
+![Diagrams](./diagrammer.png)
 
 ## Usage
 
