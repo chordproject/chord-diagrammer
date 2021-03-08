@@ -1,4 +1,4 @@
-export class Instrument {
+export interface Instrument {
 	strings: number;
 	fretsOnChord: number;
 	name: string;
@@ -6,6 +6,6 @@ export class Instrument {
 	tunings: Tuning;
 }
 
-export class Tuning {
+export interface Tuning {
 	standard: string[];
 }
