@@ -5,8 +5,8 @@ export interface BarreData {
 }
 
 export class ChordDiagram {
-  frets: number[];
-  fingers: number[];
+  frets: number[] = [];
+  fingers: number[] = [];
   baseFret: number = 1;
 
   constructor(init?: Partial<ChordDiagram>) {

@@ -17,16 +17,13 @@ export class Neck {
     var neckElement = Helper.createSVGElement("g");
 
     // grid
-    var backgroundElement = Helper.createSVGElement(
-      "rect",
-      {
-        fill: this._settings.neck.backgroundColor,
-        x: 0,
-        y: 0,
-        width: this._settings.spacing.stringSpace * (stringsCount - 1),
-        height: this._settings.spacing.fretSpace * fretsOnChord
-      },
-    )
+    var backgroundElement = Helper.createSVGElement("rect", {
+      fill: this._settings.neck.backgroundColor,
+      x: 0,
+      y: 0,
+      width: this._settings.spacing.stringSpace * (stringsCount - 1),
+      height: this._settings.spacing.fretSpace * fretsOnChord,
+    });
     neckElement.appendChild(backgroundElement);
 
     var pathElement = Helper.createSVGElement(
@@ -52,7 +49,9 @@ export class Neck {
           strokeWidth: this._settings.neck.nut.width,
           strokeLinecap: "round",
           strokeLinejoin: "round",
-          d: `M 0 ${-this._settings.neck.nut.width/2} H ${(stringsCount -1 ) * this._settings.spacing.stringSpace}`,
+          d: `M 0 ${-this._settings.neck.nut.width / 2} H ${
+            (stringsCount - 1) * this._settings.spacing.stringSpace
+          }`,
         },
         true
       );
@@ -66,7 +65,11 @@ export class Neck {
           fontSize: this._settings.neck.baseFret.fontSize,
           fill: this._settings.neck.baseFret.fontColor,
           fontFamily: this._settings.fontFamily,
-          x: - (this._settings.neck.baseFret.margin + this._settings.dot.radius + this._settings.dot.border.width),
+          x: -(
+            this._settings.neck.baseFret.margin +
+            this._settings.dot.radius +
+            this._settings.dot.border.width
+          ),
           y: this._settings.spacing.fretSpace / 2 + 0.2,
         },
         true
@@ -106,17 +109,33 @@ export class Neck {
     return neckElement;
   }
 
-  private getBaseFretText(baseFret:number): string{
-    if(this._settings.neck.baseFret.useRoman){
-      const romanNumbers = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII", "XIII", "XIV", "XV"];
+  private getBaseFretText(baseFret: number): string {
+    if (this._settings.neck.baseFret.useRoman) {
+      const romanNumbers = [
+        "I",
+        "II",
+        "III",
+        "IV",
+        "V",
+        "VI",
+        "VII",
+        "VIII",
+        "IX",
+        "X",
+        "XI",
+        "XII",
+        "XIII",
+        "XIV",
+        "XV",
+      ];
       return romanNumbers[baseFret - 1];
     }
-      return baseFret + "fr";
+    return baseFret + "fr";
   }
 
   private getNeckHorizonalLine(pos: number, stringsCount: number): string {
     return `M 0 ${pos * this._settings.spacing.fretSpace} H ${
-      (stringsCount-1) * this._settings.spacing.stringSpace
+      (stringsCount - 1) * this._settings.spacing.stringSpace
     }`;
   }
 
@@ -128,11 +147,15 @@ export class Neck {
 
   private getNeckPath(stringsCount: number, fretsOnChord: number): string {
     return Array.apply(null, Array(fretsOnChord + 1))
-      .map((_: any, pos: number) => this.getNeckHorizonalLine(pos, stringsCount))
+      .map((_: any, pos: number) =>
+        this.getNeckHorizonalLine(pos, stringsCount)
+      )
       .join(" ")
       .concat(
         Array.apply(null, Array(stringsCount))
-          .map((_: any, pos: number) => this.getNeckVerticalLine(pos, fretsOnChord))
+          .map((_: any, pos: number) =>
+            this.getNeckVerticalLine(pos, fretsOnChord)
+          )
           .join(" ")
       );
   }

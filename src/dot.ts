@@ -1,12 +1,12 @@
-import { Helper } from "./helper";
-import { Settings } from "./settings";
+import { Helper } from './helper';
+import { Settings } from './settings';
 
 export class Dot {
-  private _settings: Settings;
+	private _settings: Settings;
 
-  constructor(settings: Settings) {
-    this._settings = settings;
-  }
+	constructor(settings: Settings) {
+		this._settings = settings;
+	}
 
   build(
     index: number,
@@ -83,7 +83,7 @@ export class Dot {
         );
       }
 
-      return dotElement;
-    }
-  }
+			return dotElement;
+		}
+	}
 }

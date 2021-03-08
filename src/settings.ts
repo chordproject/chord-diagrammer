@@ -50,7 +50,7 @@ export class Settings {
   /**
    * Font family
    */
-  fontFamily:string = "Verdana";
+  fontFamily: string = "Verdana";
   /**
    * Spacing settings
    */
