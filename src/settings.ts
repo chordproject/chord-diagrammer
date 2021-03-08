@@ -1,32 +1,44 @@
 export interface DotSettings {
   color: string;
   radius: number;
-  strokeWidth: number;
-  strokeColor: string;
-  fontSize: string;
-  fontColor: string;
-  openStringRadius: number;
-  mutedStringFontSize: string;
-  stringInfoColor: string;
-  stringInfoMargin: number;
-  fontFamily: string;
+  border: {
+    width: number;
+    color: string;
+  };
+  font: {
+    size: string;
+    color: string;
+  };
+  stringInfo: {
+    openStringRadius: number;
+    mutedStringFontSize: string;
+    color: string;
+    margin: number;
+  };
 }
 
 export interface NeckSettings {
   backgroundColor: string;
-  stringColor: string;
-  stringWidth: number;
-  baseFretFontColor: string;
-  baseFretFontSize: string;
-  baseFretMargin: number;
-  nutColor: string;
-  nutWidth: number;
-  showStringNames: boolean;
-  stringNameColor: string;
-  stringNameFontSize: string;
-  stringNameMargin: number;
-  fontFamily: string;
-  useRomanBaseFret: boolean;
+  line: {
+    color: string;
+    width: number;
+  };
+  baseFret: {
+    fontColor: string;
+    fontSize: string;
+    margin: number;
+    useRoman: boolean;
+  };
+  nut: {
+    color: string;
+    width: number;
+  };
+  stringName: {
+    visible: boolean;
+    fontColor: string;
+    fontSize: string;
+    margin: number;
+  };
 }
 
 export interface SpacingSettings {
@@ -35,37 +47,140 @@ export interface SpacingSettings {
 }
 
 export class Settings {
+  /**
+   * Font family
+   */
+  fontFamily:string = "Verdana";
+  /**
+   * Spacing settings
+   */
   spacing: SpacingSettings = {
+    /**
+     * Spacing between each string (vertical)
+     */
     stringSpace: 10,
+    /**
+     * Spacing between each fret (horizontal)
+     */
     fretSpace: 14,
   };
+
+  /**
+   * Dot settings
+   */
   dot: DotSettings = {
+    /**
+     * Fill color
+     */
     color: "#FDD96F",
+    /**
+     * Circle radius
+     */
     radius: 4,
-    strokeWidth: 0,
-    strokeColor: "#444",
-    fontSize: "0.25rem",
-    fontColor: "#000",
-    openStringRadius: 2,
-    mutedStringFontSize: "0.4rem",
-    stringInfoColor: "#444",
-    stringInfoMargin: 2,
-    fontFamily: "Verdana",
+    border: {
+      /**
+       * Border width
+       */
+      width: 0.25,
+      /**
+       * Border color
+       */
+      color: "#FDD96F",
+    },
+
+    font: {
+      /**
+       * Finger font size
+       */
+      size: "0.25rem",
+      /**
+       * Finger font color
+       */
+      color: "#000",
+    },
+    stringInfo: {
+      /**
+       * Open string circle radius
+       */
+      openStringRadius: 2,
+      /**
+       * Muted string font size
+       */
+      mutedStringFontSize: "0.4rem",
+      /**
+       * String's info color
+       */
+      color: "#444",
+      /**
+       * String's info margin (neck's top)
+       */
+      margin: 2,
+    },
   };
+
+  /**
+   * Neck settings
+   */
   neck: NeckSettings = {
+    /**
+     * Background color
+     */
     backgroundColor: "#222B45",
-    stringColor: "#315264",
-    stringWidth: 0.3,
-    baseFretFontColor: "#444",
-    baseFretFontSize: "0.25rem",
-    baseFretMargin: 1,
-    nutColor: "#444",
-    nutWidth: 2,
-    showStringNames: true,
-    stringNameColor: "#444",
-    stringNameFontSize: "0.25rem",
-    stringNameMargin: 2,
-    fontFamily: "Verdana",
-    useRomanBaseFret: true,
+    line: {
+      /**
+       * Strings color
+       */
+      color: "#315264",
+      /**
+       * Neck'lines width
+       */
+      width: 0.3,
+    },
+    baseFret: {
+      /**
+       * Base fret font color
+       */
+      fontColor: "#444",
+      /**
+       * Base fret font size
+       */
+      fontSize: "0.25rem",
+      /**
+       * Base fret margin (neck's left)
+       */
+      margin: 1,
+      /**
+       * Should use roman notation
+       */
+      useRoman: true,
+    },
+    nut: {
+      /**
+       * Nut color
+       */
+      color: "#444",
+      /**
+       * Nut width
+       */
+      width: 2,
+    },
+    stringName: {
+      /**
+       * Should show the string names (neck's bottom)
+       */
+      visible: true,
+      /**
+       * String name color
+       */
+      fontColor: "#444",
+      /**
+       * String name font size
+       */
+      fontSize: "0.25rem",
+      /**
+       * String name margin
+       */
+      margin: 2,
+    },
   };
 }

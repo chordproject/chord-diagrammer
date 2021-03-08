@@ -9,6 +9,10 @@ export class ChordDiagram {
   fingers: number[];
   baseFret: number = 1;
 
+  constructor(init?: Partial<ChordDiagram>) {
+    Object.assign(this, init);
+  }
+
   public get barres(): BarreData[] {
     let barres: BarreData[] = [];
     if (this.fingers.filter((f) => f > 0).length == 0) {

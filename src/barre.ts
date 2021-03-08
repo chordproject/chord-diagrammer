@@ -22,8 +22,8 @@ export class Barre {
     var rectangleElement = Helper.createSVGElement(
       "rect",
       {
-        strokeWidth: this._settings.dot.strokeWidth,
-        stroke: this._settings.dot.strokeColor,
+        strokeWidth: this._settings.dot.border.width,
+        stroke: this._settings.dot.border.color,
         fill: this._settings.dot.color,
         x: rectX,
         y: rectY,

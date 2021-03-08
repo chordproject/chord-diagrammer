@@ -32,8 +32,8 @@ export class Neck {
     var pathElement = Helper.createSVGElement(
       "path",
       {
-        stroke: this._settings.neck.stringColor,
-        strokeWidth: this._settings.neck.stringWidth,
+        stroke: this._settings.neck.line.color,
+        strokeWidth: this._settings.neck.line.width,
         strokeLinecap: "square",
         d: this.getNeckPath(stringsCount, fretsOnChord),
       },
@@ -48,11 +48,11 @@ export class Neck {
       baseFretElement = Helper.createSVGElement(
         "path",
         {
-          stroke: this._settings.neck.nutColor,
-          strokeWidth: this._settings.neck.nutWidth,
+          stroke: this._settings.neck.nut.color,
+          strokeWidth: this._settings.neck.nut.width,
           strokeLinecap: "round",
           strokeLinejoin: "round",
-          d: `M 0 ${-this._settings.neck.nutWidth/2} H ${5 * this._settings.spacing.stringSpace}`,
+          d: `M 0 ${-this._settings.neck.nut.width/2} H ${5 * this._settings.spacing.stringSpace}`,
         },
         true
       );
@@ -63,10 +63,10 @@ export class Neck {
         {
           dominantBaseline: "middle",
           textAnchor: "end",
-          fontSize: this._settings.neck.baseFretFontSize,
-          fill: this._settings.neck.baseFretFontColor,
-          fontFamily: this._settings.neck.fontFamily,
-          x: - (this._settings.neck.baseFretMargin + this._settings.dot.radius),
+          fontSize: this._settings.neck.baseFret.fontSize,
+          fill: this._settings.neck.baseFret.fontColor,
+          fontFamily: this._settings.fontFamily,
+          x: - (this._settings.neck.baseFret.margin + this._settings.dot.radius + this._settings.dot.border.width),
           y: this._settings.spacing.fretSpace / 2 + 0.2,
         },
         true
@@ -77,22 +77,22 @@ export class Neck {
     neckElement.appendChild(baseFretElement);
 
     // string tuning names
-    if (this._settings.neck.showStringNames) {
+    if (this._settings.neck.stringName.visible) {
       var tuningGroupElement = Helper.createSVGElement("g");
       tuning.forEach((note, index) => {
         var textElement = Helper.createSVGElement(
           "text",
           {
             key: index,
-            fontSize: this._settings.neck.stringNameFontSize,
-            fill: this._settings.neck.stringNameColor,
-            fontFamily: this._settings.neck.fontFamily,
+            fontSize: this._settings.neck.stringName.fontSize,
+            fill: this._settings.neck.stringName.fontColor,
+            fontFamily: this._settings.fontFamily,
             textAnchor: "middle",
             dominantBaseline: "hanging",
             x: index * this._settings.spacing.stringSpace,
             y:
               4 * this._settings.spacing.fretSpace +
-              this._settings.neck.stringNameMargin,
+              this._settings.neck.stringName.margin,
           },
           true
         );
@@ -107,7 +107,7 @@ export class Neck {
   }
 
   private getBaseFretText(baseFret:number): string{
-    if(this._settings.neck.useRomanBaseFret){
+    if(this._settings.neck.baseFret.useRoman){
       const romanNumbers = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII", "XIII", "XIV", "XV"];
       return romanNumbers[baseFret - 1];
     }
