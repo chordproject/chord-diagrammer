@@ -1,11 +1,32 @@
 export class Instrument {
-	strings: number;
-	fretsOnChord: number;
+	/**
+	 *
+	 */
+	constructor(
+		name: string,
+		stringsCount: number,
+		fretsOnDiagram: number,
+		tuning: string[]
+	) {
+		this.name = name;
+		this.stringsCount = stringsCount;
+		this.fretsOnDiagram = fretsOnDiagram;
+		this.tuning = tuning;
+	}
+	/**
+	 * Number of strings
+	 */
+	stringsCount: number;
+	/**
+	 * Number of frets to show on the diagram
+	 */
+	fretsOnDiagram: number;
+	/**
+	 * Instrument's name
+	 */
 	name: string;
-	keys?: string[];
-	tunings: Tuning;
-}
-
-export class Tuning {
-	standard: string[];
+	/**
+	 * Instrument's tuning
+	 */
+	tuning: string[];
 }

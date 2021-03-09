@@ -1,8 +1,10 @@
 {
 	"compilerOptions": {
 		"outDir": "./dist",
-		"target": "ES6",
+		"target": "ESNext",
 		"sourceMap": true,
+		"strict": true,
+		"module": "ESNext"
 	},
 	"include": ["./src/**/*"],
 	"exclude": ["node_modules", "**/*.spec.ts"]

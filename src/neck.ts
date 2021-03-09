@@ -1,81 +1,162 @@
 import { Helper } from './helper';
+import { Settings } from './settings';
 
 export class Neck {
-	offsets = {
-		4: {
-			x: 10,
-			y: 10,
-			length: 40,
-		},
-		6: {
-			x: 0,
-			y: 0,
-			length: 50,
-		},
-	};
+	private _settings: Settings;
+
+	constructor(settings: Settings) {
+		this._settings = settings;
+	}
 
 	build(
 		tuning: string[],
-		strings: number,
-		frets: number[],
-		capo: boolean,
+		stringsCount: number,
 		fretsOnChord: number,
 		baseFret: number
-	) {
+	): SVGElement {
 		var neckElement = Helper.createSVGElement('g');
 
-		var pathElement = Helper.createSVGElement('path', {
-			stroke: '#444',
-			strokeWidth: '0.25',
-			strokeLinecap: 'square',
-			d: this.getNeckPath(strings, fretsOnChord),
+		// grid
+		var backgroundElement = Helper.createSVGElement('rect', {
+			fill: this._settings.neck.backgroundColor,
+			x: 0,
+			y: 0,
+			width: this._settings.spacing.stringSpace * (stringsCount - 1),
+			height: this._settings.spacing.fretSpace * fretsOnChord,
 		});
+		neckElement.appendChild(backgroundElement);
+
+		var pathElement = Helper.createSVGElement(
+			'path',
+			{
+				stroke: this._settings.neck.line.color,
+				strokeWidth: this._settings.neck.line.width,
+				strokeLinecap: 'square',
+				d: this.getNeckPath(stringsCount, fretsOnChord),
+			},
+			true
+		);
 		neckElement.appendChild(pathElement);
+
+		// base fret
+		let baseFretElement: SVGElement;
+		if (baseFret === 1) {
+			// nut rectangle
+			baseFretElement = Helper.createSVGElement(
+				'path',
+				{
+					stroke: this._settings.neck.nut.color,
+					strokeWidth: this._settings.neck.nut.width,
+					strokeLinecap: 'round',
+					strokeLinejoin: 'round',
+					d: `M 0 ${-this._settings.neck.nut.width / 2} H ${
+						(stringsCount - 1) * this._settings.spacing.stringSpace
+					}`,
+				},
+				true
+			);
+		} else {
+			// base-fret text
+			var textElement = Helper.createSVGElement(
+				'text',
+				{
+					dominantBaseline: 'middle',
+					textAnchor: 'end',
+					fontSize: this._settings.neck.baseFret.fontSize,
+					fill: this._settings.neck.baseFret.fontColor,
+					fontFamily: this._settings.fontFamily,
+					x: -(
+						this._settings.neck.baseFret.margin +
+						this._settings.dot.radius +
+						this._settings.dot.border.width
+					),
+					y: this._settings.spacing.fretSpace / 2 + 0.2,
+				},
+				true
+			);
+			const text = this.getBaseFretText(baseFret);
+			baseFretElement = Helper.appendTextNode(textElement, text);
+		}
+		neckElement.appendChild(baseFretElement);
+
+		// string tuning names
+		if (this._settings.neck.stringName.visible) {
+			var tuningGroupElement = Helper.createSVGElement('g');
+			tuning.forEach((note, index) => {
+				var textElement = Helper.createSVGElement(
+					'text',
+					{
+						key: index,
+						fontSize: this._settings.neck.stringName.fontSize,
+						fill: this._settings.neck.stringName.fontColor,
+						fontFamily: this._settings.fontFamily,
+						textAnchor: 'middle',
+						dominantBaseline: 'hanging',
+						x: index * this._settings.spacing.stringSpace,
+						y:
+							fretsOnChord * this._settings.spacing.fretSpace +
+							this._settings.neck.stringName.margin,
+					},
+					true
+				);
+				tuningGroupElement.appendChild(
+					Helper.appendTextNode(textElement, note)
+				);
+			});
+			neckElement.appendChild(tuningGroupElement);
+		}
 
 		return neckElement;
 	}
 
-	private getNeckHorizonalLine(pos: number, strings: number) {
-		return `M ${this.offsets[strings].x} ${12 * pos} H ${
-			this.offsets[strings].length
+	private getBaseFretText(baseFret: number): string {
+		if (this._settings.neck.baseFret.useRoman) {
+			const romanNumbers = [
+				'I',
+				'II',
+				'III',
+				'IV',
+				'V',
+				'VI',
+				'VII',
+				'VIII',
+				'IX',
+				'X',
+				'XI',
+				'XII',
+				'XIII',
+				'XIV',
+				'XV',
+			];
+			return romanNumbers[baseFret - 1];
+		}
+		return baseFret + 'fr';
+	}
+
+	private getNeckHorizonalLine(pos: number, stringsCount: number): string {
+		return `M 0 ${pos * this._settings.spacing.fretSpace} H ${
+			(stringsCount - 1) * this._settings.spacing.stringSpace
 		}`;
 	}
 
-	private getNeckVerticalLine(pos: number, strings: number) {
-		return `M ${this.offsets[strings].y + pos * 10} 0 V 48`;
+	private getNeckVerticalLine(pos: number, fretsCount: number): string {
+		return `M ${pos * this._settings.spacing.stringSpace} 0 V ${
+			fretsCount * this._settings.spacing.fretSpace
+		}`;
 	}
 
-	private getNeckPath(strings: number, fretsOnChord: number) {
+	private getNeckPath(stringsCount: number, fretsOnChord: number): string {
 		return Array.apply(null, Array(fretsOnChord + 1))
-			.map((_: any, pos: number) => this.getNeckHorizonalLine(pos, strings))
+			.map((_: any, pos: number) =>
+				this.getNeckHorizonalLine(pos, stringsCount)
+			)
 			.join(' ')
 			.concat(
-				Array.apply(null, Array(strings))
-					.map((_: any, pos: number) => this.getNeckVerticalLine(pos, strings))
+				Array.apply(null, Array(stringsCount))
+					.map((_: any, pos: number) =>
+						this.getNeckVerticalLine(pos, fretsOnChord)
+					)
 					.join(' ')
 			);
-	}
-
-	private getBarreOffset(
-		strings: number,
-		frets: number[],
-		baseFret: number,
-		capo: boolean
-	) {
-		return strings === 6
-			? frets[0] === 1 || capo
-				? baseFret > 9
-					? -12
-					: -11
-				: baseFret > 9
-				? -10
-				: -7
-			: frets[0] === 1 || capo
-			? baseFret > 9
-				? -1
-				: 0
-			: baseFret > 9
-			? 3
-			: 4;
 	}
 }
