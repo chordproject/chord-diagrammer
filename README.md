@@ -24,17 +24,17 @@ It's really easy to draw an SVG chord diagram:
 ```ts
 // chord diagram definitions
 const chordDiagram = new ChordDiagram({
-  frets: [-1, 0, 2, 2, 1, 0],
-  fingers: [0, 0, 2, 3, 1, 0],
-  baseFret: 1,
+	frets: [-1, 0, 2, 2, 1, 0],
+	fingers: [0, 0, 2, 3, 1, 0],
+	baseFret: 1,
 });
 
 // instrument definitions
 const instrument = {
-  strings: 6,
-  fretsOnChord: 4,
-  name: "Guitar",
-  tunings: ["E", "A", "D", "G", "B", "E"],
+	strings: 6,
+	fretsOnChord: 4,
+	name: 'Guitar',
+	tunings: ['E', 'A', 'D', 'G', 'B', 'E'],
 };
 
 const generator = new Diagrammer(); // create an instance of Diagrammer

@@ -1,6 +1,6 @@
 {
 	"name": "chordproject-diagrammer",
-	"version": "0.1.1",
+	"version": "0.1.2",
 	"main": "dist/chordproject-diagrammer.bundle.js",
 	"description": "A TypeScript library for generating SVG chord diagrams.",
 	"engines": {
