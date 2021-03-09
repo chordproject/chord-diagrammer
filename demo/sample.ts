@@ -1,23 +1,22 @@
 import { Diagrammer } from "../src/diagrammer";
 import { ChordDiagram } from "../src/models/chordDiagram";
+import { Instrument } from "../src/models/instrument";
 
 // chordSample
-const chord = new ChordDiagram();
-chord.frets = [1,2,1,2,1,2];
-chord.fingers = [1,2,1,3,1,4];
-chord.baseFret = 13;
+const chordDiagram = new ChordDiagram({
+  frets : [-1, 3, 2, 0, 1, 0],
+  fingers : [0, 3, 2, 0, 1, 0],
+  baseFret : 1,
+});
 
-const instrument = {
-  strings: 6,
-  fretsOnChord: 4,
+const instrument:Instrument = {
+  stringsCount: 6,
+  fretsOnDiagram: 4,
   name: "Guitar",
-  keys: [],
-  tunings: {
-    standard: ["E", "A", "D", "G", "B", "E"],
-  },
+  tuning: ["E", "A", "D", "G", "B", "E"]
 };
 
 const generator = new Diagrammer();
-var svg = generator.builder(chord, instrument);
+var svg = generator.builder(chordDiagram, instrument);
 document.body.appendChild(svg);
 console.log(svg);
