@@ -1,1 +1,2 @@
-export { Diagrammer } from './diagrammer';
+export { SvgBuilder  } from './svgBuilder';
+export { ChordDiagram } from './models/chordDiagram';

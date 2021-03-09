@@ -6,14 +6,14 @@ import { Barre } from './barre';
 import { Dot } from './dot';
 import { Settings } from './settings';
 
-export class Diagrammer {
+export class SvgBuilder {
 	private _settings: Settings = new Settings();
 
 	set settings(value: Settings) {
 		this._settings = value;
 	}
 
-	builder(chord: ChordDiagram, instrument: Instrument): SVGElement {
+	build(chord: ChordDiagram, instrument: Instrument): SVGElement {
 		var tuning = instrument.tuning;
 		var stringsCount = instrument.stringsCount;
 		var fretsOnChord = instrument.fretsOnDiagram;

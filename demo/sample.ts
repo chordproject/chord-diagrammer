@@ -1,4 +1,4 @@
-import { Diagrammer } from '../src/diagrammer';
+import { SvgBuilder } from '../src/svgBuilder';
 import { ChordDiagram } from '../src/models/chordDiagram';
 import { Instrument } from '../src/models/instrument';
 
@@ -16,7 +16,7 @@ const instrument: Instrument = {
 	tuning: ['E', 'A', 'D', 'G', 'B', 'E'],
 };
 
-const generator = new Diagrammer();
-var svg = generator.builder(chordDiagram, instrument);
+const builder = new SvgBuilder();
+var svg = builder.build(chordDiagram, instrument);
 document.body.appendChild(svg);
 console.log(svg);
