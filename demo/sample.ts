@@ -6,7 +6,7 @@ import { Instrument } from '../src/models/instrument';
 const chordDiagram = new ChordDiagram({
 	frets: [-1, 3, 2, 0, 1, 0],
 	fingers: [0, 3, 2, 0, 1, 0],
-	baseFret: 1,
+	baseFret: 3,
 });
 
 const instrument: Instrument = {

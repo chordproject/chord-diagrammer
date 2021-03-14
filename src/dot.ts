@@ -14,24 +14,22 @@ export class Dot {
 		finger: number,
 		hasNut: boolean
 	): SVGElement {
-		const circleX = index * this._settings.spacing.stringSpace;
+		const circleX = index * this._settings.stringSpace;
 		const circleY =
-			fret * this._settings.spacing.fretSpace -
-			this._settings.spacing.fretSpace / 2;
+			fret * this._settings.fretSpace -
+			this._settings.fretSpace / 2;
 		if (fret === -1) {
 			var textElement = Helper.createSVGElement(
 				'text',
 				{
-					fontSize: this._settings.dot.stringInfo.mutedStringFontSize,
-					fill: this._settings.dot.stringInfo.color,
-					fontFamily: this._settings.fontFamily,
+					class: "dot-stringinfo dot-mutedstring",
 					textAnchor: 'middle',
 					dominantBaseline: 'auto',
 					x: circleX,
 					y: hasNut
-						? -this._settings.neck.nut.width -
-						  this._settings.dot.stringInfo.margin
-						: -this._settings.dot.stringInfo.margin,
+						? -this._settings.neck.nutWidth -
+						  this._settings.dot.stringInfoMargin
+						: -this._settings.dot.stringInfoMargin,
 				},
 				true
 			);
@@ -40,26 +38,23 @@ export class Dot {
 		} else {
 			let cy = circleY;
 			let radius = this._settings.dot.radius;
-			let color = this._settings.dot.color;
-			let borderColor = this._settings.dot.border.color;
+			let className = "dot-circle"
 			if (fret === 0) {
 				(cy = hasNut
-					? -this._settings.neck.nut.width -
-					  this._settings.dot.stringInfo.margin -
-					  this._settings.dot.stringInfo.openStringRadius
-					: -this._settings.dot.stringInfo.margin -
-					  this._settings.dot.stringInfo.openStringRadius),
-					(radius = this._settings.dot.stringInfo.openStringRadius);
-				color = 'transparent';
-				borderColor = this._settings.dot.stringInfo.color;
+					? -this._settings.neck.nutWidth -
+					  this._settings.dot.stringInfoMargin -
+					  this._settings.dot.openStringRadius
+					: -this._settings.dot.stringInfoMargin -
+					  this._settings.dot.openStringRadius),
+					(radius = this._settings.dot.openStringRadius);
+				className = "dot-stringinfo dot-openstring"
 			}
 			var dotElement = Helper.createSVGElement('g');
 			var circleElement = Helper.createSVGElement(
 				'circle',
 				{
-					strokeWidth: this._settings.dot.border.width,
-					stroke: borderColor,
-					fill: color,
+					class: className,
+					strokeWidth: this._settings.dot.borderWidth,
 					cx: circleX,
 					cy: cy,
 					r: radius,
@@ -72,11 +67,9 @@ export class Dot {
 				var text2Element = Helper.createSVGElement(
 					'text',
 					{
-						fontSize: this._settings.dot.font.size,
-						fontFamily: this._settings.fontFamily,
+						class: "dot-finger",
 						textAnchor: 'middle',
 						dominantBaseline: 'middle',
-						fill: this._settings.dot.font.color,
 						x: circleX,
 						y: circleY + 0.2,
 					},

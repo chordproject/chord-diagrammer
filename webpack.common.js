@@ -3,7 +3,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
 	entry: {
-		app: './src/index.ts',
+		app: ['./src/index.ts', './src/style.css'],
 	},
 	plugins: [new CleanWebpackPlugin()],
 	output: {
@@ -18,7 +18,7 @@ module.exports = {
 				test: /\.tsx?$/,
 				use: 'ts-loader',
 				exclude: /node_modules/,
-			},
+			}
 		],
 	},
 	resolve: {
