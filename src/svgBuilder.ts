@@ -40,7 +40,7 @@ export class SvgBuilder {
 			baseBoxHeight + stringNamesHeight + nutHeight + stringInfoHeight;
 
 		var svg = Helper.createSVGElement('svg', {
-			class: "chordproject-diagram",
+			class: 'chordproject-diagram',
 			width: '100%',
 			preserveAspectRatio: 'xMinYMin meet',
 			viewBox: `0 0 ${viewBoxWidth} ${viewBoxHeight}`,
