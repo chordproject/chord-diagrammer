@@ -12,18 +12,17 @@ export class Barre {
 		const width = (stringEnd - stringStart) * 10;
 
 		var barreElement = Helper.createSVGElement('g');
-		const rectX = stringStart * this._settings.spacing.stringSpace;
+		const rectX = stringStart * this._settings.stringSpace;
 		const rectY =
-			index * this._settings.spacing.fretSpace -
-			this._settings.spacing.fretSpace / 2 -
+			index * this._settings.fretSpace -
+			this._settings.fretSpace / 2 -
 			this._settings.dot.radius;
 		// barre rectangle
 		var rectangleElement = Helper.createSVGElement(
 			'rect',
 			{
-				strokeWidth: this._settings.dot.border.width,
-				stroke: this._settings.dot.border.color,
-				fill: this._settings.dot.color,
+				class: "dot-circle dot-barre",
+				strokeWidth: this._settings.dot.borderWidth,
 				x: rectX,
 				y: rectY,
 				width: width,
