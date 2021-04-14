@@ -33,7 +33,6 @@
     fill: transparent;
     stroke: #444;
 }
-
 .dot-finger {
     fill: white;
     font-size: 0.25rem;
@@ -41,4 +40,8 @@
 
 .dot-mutedstring {
     font-size: 0.4rem;
+}
+
+#diagram {
+    max-width: 500px;
 }
