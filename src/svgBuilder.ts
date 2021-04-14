@@ -22,8 +22,7 @@ export class SvgBuilder {
         const baseBoxWidth =
             (stringsCount - 1) * this._settings.stringSpace +
             2 * (this._settings.dot.radius + this._settings.dot.borderWidth);
-        const baseFretTextWidth =
-            baseFret <= 1 ? 0 : 9 + this._settings.neck.baseFretMargin;
+        const baseFretTextWidth = baseFret <= 1 ? 0 : 9 + this._settings.neck.baseFretMargin;
         const viewBoxWidth = baseBoxWidth + baseFretTextWidth;
 
         const baseBoxHeight = fretsOnChord * this._settings.fretSpace;
@@ -36,8 +35,7 @@ export class SvgBuilder {
             this._settings.dot.openStringRadius +
             this._settings.dot.stringInfoMargin +
             this._settings.dot.borderWidth;
-        const viewBoxHeight =
-            baseBoxHeight + stringNamesHeight + nutHeight + stringInfoHeight;
+        const viewBoxHeight = baseBoxHeight + stringNamesHeight + nutHeight + stringInfoHeight;
 
         var svg = Helper.createSVGElement("svg", {
             class: "chordproject-diagram",
@@ -54,22 +52,14 @@ export class SvgBuilder {
 
         // Neck
         const neck = new Neck(this._settings);
-        rootElement.appendChild(
-            neck.build(tuning, stringsCount, fretsOnChord, baseFret)
-        );
+        rootElement.appendChild(neck.build(tuning, stringsCount, fretsOnChord, baseFret));
 
         // Barres
         if (chord.barres.length > 0) {
             const barresData = chord.barres;
             barresData.forEach((barreData) => {
                 const barre = new Barre(this._settings);
-                rootElement.appendChild(
-                    barre.build(
-                        barreData.fret,
-                        barreData.startString,
-                        barreData.endString
-                    )
-                );
+                rootElement.appendChild(barre.build(barreData.fret, barreData.startString, barreData.endString));
             });
         }
 
@@ -77,14 +67,7 @@ export class SvgBuilder {
         this.onlyDots(chord).forEach((dotData) => {
             const dot = new Dot(this._settings);
             const finger = chord.fingers ? chord.fingers[dotData.fret] : 0;
-            rootElement.appendChild(
-                dot.build(
-                    dotData.fret,
-                    dotData.value,
-                    finger,
-                    chord.baseFret === 1
-                )
-            );
+            rootElement.appendChild(dot.build(dotData.fret, dotData.value, finger, chord.baseFret === 1));
         });
 
         svg.appendChild(rootElement);

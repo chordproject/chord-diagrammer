@@ -2,12 +2,7 @@ export class Instrument {
     /**
      *
      */
-    constructor(
-        name: string,
-        stringsCount: number,
-        fretsOnDiagram: number,
-        tuning: string[]
-    ) {
+    constructor(name: string, stringsCount: number, fretsOnDiagram: number, tuning: string[]) {
         this.name = name;
         this.stringsCount = stringsCount;
         this.fretsOnDiagram = fretsOnDiagram;

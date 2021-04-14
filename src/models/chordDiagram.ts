@@ -25,10 +25,7 @@ export class ChordDiagram {
         }
 
         const onlyFrets = this.frets
-            .filter(
-                (value, index, self) =>
-                    value > 0 && self.indexOf(value) === index
-            )
+            .filter((value, index, self) => value > 0 && self.indexOf(value) === index)
             .sort((a, b) => a - b);
         onlyFrets.forEach((fret) => {
             for (let index = 0; index < dots.length; index++) {
@@ -39,10 +36,7 @@ export class ChordDiagram {
                 const startString = index;
                 const finger = dot[1];
                 let totalFingers = 1;
-                while (
-                    ++index < dots.length &&
-                    (dots[index][0] >= fret || dots[index][0] === -1)
-                ) {
+                while (++index < dots.length && (dots[index][0] >= fret || dots[index][0] === -1)) {
                     if (dots[index][0] === fret) {
                         //Check if it's the same finger
                         if (dots[index][1] !== finger) {

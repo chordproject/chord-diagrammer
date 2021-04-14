@@ -13,10 +13,7 @@ export class Barre {
 
         var barreElement = Helper.createSVGElement("g");
         const rectX = stringStart * this._settings.stringSpace;
-        const rectY =
-            index * this._settings.fretSpace -
-            this._settings.fretSpace / 2 -
-            this._settings.dot.radius;
+        const rectY = index * this._settings.fretSpace - this._settings.fretSpace / 2 - this._settings.dot.radius;
         // barre rectangle
         var rectangleElement = Helper.createSVGElement(
             "rect",

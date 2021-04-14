@@ -8,12 +8,7 @@ export class Neck {
         this._settings = settings;
     }
 
-    build(
-        tuning: string[],
-        stringsCount: number,
-        fretsOnChord: number,
-        baseFret: number
-    ): SVGElement {
+    build(tuning: string[], stringsCount: number, fretsOnChord: number, baseFret: number): SVGElement {
         var neckElement = Helper.createSVGElement("g", {
             class: "neck",
         });
@@ -51,9 +46,7 @@ export class Neck {
                     strokeWidth: this._settings.neck.nutWidth,
                     strokeLinecap: "round",
                     strokeLinejoin: "round",
-                    d: `M 0 ${-this._settings.neck.nutWidth / 2} H ${
-                        (stringsCount - 1) * this._settings.stringSpace
-                    }`,
+                    d: `M 0 ${-this._settings.neck.nutWidth / 2} H ${(stringsCount - 1) * this._settings.stringSpace}`,
                 },
                 true
             );
@@ -91,15 +84,11 @@ export class Neck {
                         textAnchor: "middle",
                         dominantBaseline: "hanging",
                         x: index * this._settings.stringSpace,
-                        y:
-                            fretsOnChord * this._settings.fretSpace +
-                            this._settings.neck.stringNameMargin,
+                        y: fretsOnChord * this._settings.fretSpace + this._settings.neck.stringNameMargin,
                     },
                     true
                 );
-                tuningGroupElement.appendChild(
-                    Helper.appendTextNode(textElement, note)
-                );
+                tuningGroupElement.appendChild(Helper.appendTextNode(textElement, note));
             });
             neckElement.appendChild(tuningGroupElement);
         }
@@ -132,28 +121,20 @@ export class Neck {
     }
 
     private getNeckHorizonalLine(pos: number, stringsCount: number): string {
-        return `M 0 ${pos * this._settings.fretSpace} H ${
-            (stringsCount - 1) * this._settings.stringSpace
-        }`;
+        return `M 0 ${pos * this._settings.fretSpace} H ${(stringsCount - 1) * this._settings.stringSpace}`;
     }
 
     private getNeckVerticalLine(pos: number, fretsCount: number): string {
-        return `M ${pos * this._settings.stringSpace} 0 V ${
-            fretsCount * this._settings.fretSpace
-        }`;
+        return `M ${pos * this._settings.stringSpace} 0 V ${fretsCount * this._settings.fretSpace}`;
     }
 
     private getNeckPath(stringsCount: number, fretsOnChord: number): string {
         return Array.apply(null, Array(fretsOnChord + 1))
-            .map((_: any, pos: number) =>
-                this.getNeckHorizonalLine(pos, stringsCount)
-            )
+            .map((_: any, pos: number) => this.getNeckHorizonalLine(pos, stringsCount))
             .join(" ")
             .concat(
                 Array.apply(null, Array(stringsCount))
-                    .map((_: any, pos: number) =>
-                        this.getNeckVerticalLine(pos, fretsOnChord)
-                    )
+                    .map((_: any, pos: number) => this.getNeckVerticalLine(pos, fretsOnChord))
                     .join(" ")
             );
     }

@@ -8,15 +8,9 @@ export class Dot {
         this._settings = settings;
     }
 
-    build(
-        index: number,
-        fret: number,
-        finger: number,
-        hasNut: boolean
-    ): SVGElement {
+    build(index: number, fret: number, finger: number, hasNut: boolean): SVGElement {
         const circleX = index * this._settings.stringSpace;
-        const circleY =
-            fret * this._settings.fretSpace - this._settings.fretSpace / 2;
+        const circleY = fret * this._settings.fretSpace - this._settings.fretSpace / 2;
         if (fret === -1) {
             var textElement = Helper.createSVGElement(
                 "text",
@@ -26,8 +20,7 @@ export class Dot {
                     dominantBaseline: "auto",
                     x: circleX,
                     y: hasNut
-                        ? -this._settings.neck.nutWidth -
-                          this._settings.dot.stringInfoMargin
+                        ? -this._settings.neck.nutWidth - this._settings.dot.stringInfoMargin
                         : -this._settings.dot.stringInfoMargin,
                 },
                 true
@@ -43,8 +36,7 @@ export class Dot {
                     ? -this._settings.neck.nutWidth -
                       this._settings.dot.stringInfoMargin -
                       this._settings.dot.openStringRadius
-                    : -this._settings.dot.stringInfoMargin -
-                      this._settings.dot.openStringRadius),
+                    : -this._settings.dot.stringInfoMargin - this._settings.dot.openStringRadius),
                     (radius = this._settings.dot.openStringRadius);
                 className = "dot-stringinfo dot-openstring";
             }
@@ -74,9 +66,7 @@ export class Dot {
                     },
                     true
                 );
-                dotElement.appendChild(
-                    Helper.appendTextNode(text2Element, finger.toString())
-                );
+                dotElement.appendChild(Helper.appendTextNode(text2Element, finger.toString()));
             }
 
             return dotElement;
