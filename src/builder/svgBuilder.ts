@@ -1,6 +1,6 @@
 import { Helper } from "./helper";
-import { ChordDiagram } from "./models/chordDiagram";
-import { Instrument } from "./models/instrument";
+import { ChordDiagram } from "../models/chordDiagram";
+import { Instrument } from "../models/instrument";
 import { Neck } from "./neck";
 import { Barre } from "./barre";
 import { Dot } from "./dot";
