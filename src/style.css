@@ -1,0 +1,44 @@
+.chordproject-diagram text {
+    font-family: Verdana;
+}
+
+.neck-background {
+    fill: transparent;
+}
+
+.neck-nut {
+    stroke: #444;
+}
+
+.neck-grid {
+    stroke: #444;
+}
+
+.neck-stringnames {
+    font-size: 0.25rem;
+    fill: #444;
+}
+
+.neck-basefret {
+    font-size: 0.25rem;
+    fill: #444;
+}
+
+.dot-circle {
+    stroke: #444;
+    fill: #444;
+}
+
+.dot-openstring {
+    fill: transparent;
+    stroke: #444;
+}
+
+.dot-finger {
+    fill: white;
+    font-size: 0.25rem;
+}
+
+.dot-mutedstring {
+    font-size: 0.4rem;
+}

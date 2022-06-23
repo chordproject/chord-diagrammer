@@ -1,9 +1,9 @@
-import { IDictionary } from './models/IDictionary';
+import { AttributeDictionary } from './models/attributeDictionary';
 
 export class Helper {
 	static createSVGElement(
 		name: string,
-		attributes?: IDictionary,
+		attributes?: AttributeDictionary,
 		dashValues: boolean = false
 	): SVGElement {
 		const node = document.createElementNS('http://www.w3.org/2000/svg', name);
@@ -23,9 +23,9 @@ export class Helper {
 		return node;
 	}
 
-	static appendTextNode(node: SVGElement, val: string): SVGElement {
-		const textNode = document.createTextNode(val);
-		node.appendChild(textNode);
-		return node;
-	}
+    static appendTextNode(node: SVGElement, val: string): SVGElement {
+        const textNode = document.createTextNode(val);
+        node.appendChild(textNode);
+        return node;
+    }
 }
