@@ -18,5 +18,5 @@ const instrument: Instrument = {
 
 const builder = new SvgBuilder();
 var svg = builder.build(chordDiagram, instrument);
-document.body.appendChild(svg);
+document.getElementById("diagram")!.appendChild(svg);
 console.log(svg);
