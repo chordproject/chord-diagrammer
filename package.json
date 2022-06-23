@@ -1,34 +1,36 @@
 {
-	"name": "chordproject-diagrammer",
-	"version": "0.1.4",
-	"main": "dist/chordproject-diagrammer.bundle.js",
-	"description": "A TypeScript library for generating SVG chord diagrams.",
-	"engines": {
-		"node": ">=4.2.4"
-	},
-	"keywords": [
-		"chordpro",
-		"chordproject",
-		"viewer",
-		"chord",
-		"diagrams"
-	],
-	"author": "Jaime Mora (http://chordproject.com)",
-	"scripts": {
-		"start": "webpack serve --config webpack.dev.js",
-		"build": "webpack --config webpack.prod.js",
-		"publish": "npm build && npm publish"
-	},
-	"devDependencies": {
-		"clean-webpack-plugin": "^3.0.0",
-		"css-loader": "^5.1.2",
-		"html-webpack-plugin": "^5.2.0",
-		"style-loader": "^2.0.0",
-		"ts-loader": "^8.0.17",
-		"typescript": "^4.2.2",
-		"webpack": "^5.24.2",
-		"webpack-cli": "^4.5.0",
-		"webpack-dev-server": "^3.11.2"
-	},
-	"dependencies": {}
+    "name": "chordproject-diagrammer",
+    "version": "0.1.8",
+    "main": "dist/chordproject-diagrammer.bundle.js",
+    "typings": "dist/index",
+    "files": [
+        "dist"
+    ],
+    "description": "A TypeScript library for generating SVG chord diagrams.",
+    "engines": {
+        "node": ">=4.2.4"
+    },
+    "keywords": [
+        "chordpro",
+        "chordproject",
+        "viewer",
+        "chord",
+        "diagrams"
+    ],
+    "author": "Jaime Mora (http://chordproject.com)",
+    "scripts": {
+        "start": "webpack serve --config webpack.dev.js",
+        "build": "webpack --config webpack.prod.js",
+        "release": "npm run build && npm publish"
+    },
+    "devDependencies": {
+        "clean-webpack-plugin": "^3.0.0",
+        "html-webpack-plugin": "^5.2.0",
+        "ts-loader": "^8.0.17",
+        "typescript": "^4.2.2",
+        "webpack": "^5.24.2",
+        "webpack-cli": "^4.5.0",
+        "webpack-dev-server": "^3.11.2"
+    },
+    "dependencies": {}
 }

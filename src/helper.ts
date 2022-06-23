@@ -23,9 +23,9 @@ export class Helper {
 		return node;
 	}
 
-	static appendTextNode(node: SVGElement, val: string): SVGElement {
-		const textNode = document.createTextNode(val);
-		node.appendChild(textNode);
-		return node;
-	}
+    static appendTextNode(node: SVGElement, val: string): SVGElement {
+        const textNode = document.createTextNode(val);
+        node.appendChild(textNode);
+        return node;
+    }
 }

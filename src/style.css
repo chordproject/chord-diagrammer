@@ -2,11 +2,11 @@
     font-family: Verdana;
 }
 
-.neck-background{
+.neck-background {
     fill: transparent;
 }
 
-.neck-nut{
+.neck-nut {
     stroke: #444;
 }
 
@@ -33,6 +33,7 @@
     fill: transparent;
     stroke: #444;
 }
+
 .dot-finger {
     fill: white;
     font-size: 0.25rem;
