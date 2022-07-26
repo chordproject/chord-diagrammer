@@ -15,9 +15,9 @@ export class Neck {
 
         // grid
         var backgroundElement = Helper.createSVGElement("rect", {
-            class: "neck-background",
             x: 0,
             y: 0,
+            fill: this._settings.neck.color,
             width: this._settings.stringSpace * (stringsCount - 1),
             height: this._settings.fretSpace * fretsOnChord,
         });
@@ -26,8 +26,8 @@ export class Neck {
         var pathElement = Helper.createSVGElement(
             "path",
             {
-                class: "neck-grid",
-                strokeWidth: this._settings.neck.lineWidth,
+                stroke: this._settings.neck.grid.visible ? this._settings.neck.grid.color :  "transparent",
+                strokeWidth: this._settings.neck.grid.width,
                 strokeLinecap: "square",
                 d: this.getNeckPath(stringsCount, fretsOnChord),
             },
@@ -42,24 +42,26 @@ export class Neck {
             baseFretElement = Helper.createSVGElement(
                 "path",
                 {
-                    class: "neck-nut",
-                    strokeWidth: this._settings.neck.nutWidth,
+                    stroke: this._settings.neck.nut.color,
+                    strokeWidth: this._settings.neck.nut.width,
                     strokeLinecap: "round",
                     strokeLinejoin: "round",
-                    d: `M 0 ${-this._settings.neck.nutWidth / 2} H ${(stringsCount - 1) * this._settings.stringSpace}`,
+                    d: `M 0 ${-this._settings.neck.nut.width / 2} H ${(stringsCount - 1) * this._settings.stringSpace}`,
                 },
                 true
             );
-        } else {
+            neckElement.appendChild(baseFretElement);
+        } else if(this._settings.neck.baseFret.visible) {
             // base-fret text
             var textElement = Helper.createSVGElement(
                 "text",
                 {
-                    class: "neck-basefret",
+                    fontSize: this._settings.neck.baseFret.size,
+                    fill: this._settings.neck.baseFret.color,
                     dominantBaseline: "middle",
                     textAnchor: "end",
                     x: -(
-                        this._settings.neck.baseFretMargin +
+                        this._settings.neck.baseFret.margin +
                         this._settings.dot.radius +
                         this._settings.dot.borderWidth
                     ),
@@ -69,22 +71,23 @@ export class Neck {
             );
             const text = this.getBaseFretText(baseFret);
             baseFretElement = Helper.appendTextNode(textElement, text);
+            neckElement.appendChild(baseFretElement);
         }
-        neckElement.appendChild(baseFretElement);
 
         // string tuning names
-        if (this._settings.neck.stringNameVisible) {
+        if (this._settings.neck.stringName.visible) {
             var tuningGroupElement = Helper.createSVGElement("g");
             tuning.forEach((note, index) => {
                 var textElement = Helper.createSVGElement(
                     "text",
                     {
-                        class: "neck-stringnames",
                         key: index,
                         textAnchor: "middle",
                         dominantBaseline: "hanging",
+                        fontSize: this._settings.neck.stringName.size,
+                        fill: this._settings.neck.stringName.color,
                         x: index * this._settings.stringSpace,
-                        y: fretsOnChord * this._settings.fretSpace + this._settings.neck.stringNameMargin,
+                        y: fretsOnChord * this._settings.fretSpace + this._settings.neck.stringName.margin,
                     },
                     true
                 );
