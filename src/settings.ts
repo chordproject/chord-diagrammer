@@ -32,17 +32,13 @@ export interface DotSettings {
      * Open string circle radius
      */
     openStringRadius: number;
-    /**
-     * String info margin
-     */
-    stringInfoMargin: number;
 }
 
 export interface NeckSettings {
     useRoman: boolean;
     color: string;
-    grid: LineSettings,
     nut: LineSettings,
+    grid: LineSettings,
     stringName: TextSettings,
     baseFret:TextSettings,
     stringInfo: TextSettings,
@@ -64,7 +60,6 @@ export class Settings {
         fillColor: "#444",
         strokeColor: "#444",
         openStringRadius: 2,
-        stringInfoMargin: 2,
     };
     neck: NeckSettings = {
         useRoman: true,
@@ -74,15 +69,15 @@ export class Settings {
             visible: true,
             width: 2,
         },
+        grid: {
+            color: "#444",
+            width: 0.3,
+            visible: true,
+        },
         stringName: {
             color: "#444",
             size: 5,
             margin: 2,
-            visible: true,
-        },
-        grid: {
-            color: "#444",
-            width: 0.3,
             visible: true,
         },
         baseFret: {
@@ -94,7 +89,7 @@ export class Settings {
         stringInfo: {
             color: "#444",
             size: 5,
-            margin: 1,
+            margin: 2,
             visible: true,
         }
     };

@@ -29,7 +29,7 @@ export class SvgBuilder {
         const stringInfoHeight =
             4 +
             this.settings.dot.openStringRadius +
-            this.settings.dot.stringInfoMargin +
+            this.settings.neck.stringInfo.margin +
             this.settings.dot.borderWidth;
         const viewBoxHeight = baseBoxHeight + stringNamesHeight + nutHeight + stringInfoHeight;
 

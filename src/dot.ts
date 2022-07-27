@@ -21,8 +21,8 @@ export class Dot {
                     dominantBaseline: "auto",
                     x: circleX,
                     y: hasNut
-                        ? -this._settings.neck.nut.width - this._settings.dot.stringInfoMargin
-                        : -this._settings.dot.stringInfoMargin,
+                        ? -this._settings.neck.nut.width - this._settings.neck.stringInfo.margin
+                        : -this._settings.neck.stringInfo.margin,
                 },
                 true
             );
@@ -35,9 +35,9 @@ export class Dot {
             if (fret === 0) {
                 (cy = hasNut
                     ? -this._settings.neck.nut.width -
-                      this._settings.dot.stringInfoMargin -
+                      this._settings.neck.stringInfo.margin -
                       this._settings.dot.openStringRadius
-                    : -this._settings.dot.stringInfoMargin - this._settings.dot.openStringRadius),
+                    : -this._settings.neck.stringInfo.margin - this._settings.dot.openStringRadius),
                     (radius = this._settings.dot.openStringRadius);
                 fill = "transparent";
             }
