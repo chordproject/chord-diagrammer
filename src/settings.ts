@@ -1,3 +1,16 @@
+export interface LineSettings {
+    color: string;
+    width: number;
+    visible: boolean;
+}
+
+export interface TextSettings {
+    color: string;
+    size: number;
+    visible: boolean;
+    margin: number;
+}
+
 export interface DotSettings {
     /**
      * Circle radius
@@ -7,70 +20,77 @@ export interface DotSettings {
      * Dot border width
      */
     borderWidth: number;
-
+    /**
+     * Dot fill color
+     */
+    fillColor: string,
+    /**
+     * Dot stroke color
+     */
+    strokeColor: string,
     /**
      * Open string circle radius
      */
     openStringRadius: number;
-
-    /**
-     * String info margin
-     */
-    stringInfoMargin: number;
 }
 
 export interface NeckSettings {
-    lineWidth: number;
-    baseFretMargin: number;
-    /*
-     * Should use roman notation
-     */
     useRoman: boolean;
-    nutWidth: number;
-    stringNameVisible: boolean;
-    stringNameMargin: number;
+    color: string;
+    nut: LineSettings,
+    grid: LineSettings,
+    stringName: TextSettings,
+    baseFret:TextSettings,
+    stringInfo: TextSettings,
 }
 
 export class Settings {
     stringSpace: number = 10;
     fretSpace: number = 14;
-
-    /**
-     * Dot settings
-     */
-    dot: DotSettings = {
-        /**
-         * Circle radius
-         */
-        radius: 4,
-        /**
-         * Dot border width
-         */
-        borderWidth: 0.25,
-
-        /**
-         * Open string circle radius
-         */
-        openStringRadius: 2,
-
-        /**
-         * String info margin
-         */
-        stringInfoMargin: 2,
+    fontFamily: string = "Verdana";
+    fingering: TextSettings = {
+        color: "#fff",
+        margin: 1,
+        size: 4,
+        visible: true,
     };
-
-    /**
-     * Neck settings
-     */
+    dot: DotSettings = {
+        radius: 4,
+        borderWidth: 0.25,
+        fillColor: "#444",
+        strokeColor: "#444",
+        openStringRadius: 2,
+    };
     neck: NeckSettings = {
-        lineWidth: 0.3,
-        baseFretMargin: 1,
-        /*
-         * Should use roman notation
-         */
         useRoman: true,
-        nutWidth: 2,
-        stringNameVisible: true,
-        stringNameMargin: 2,
+        color: "transparent",
+        nut:  {
+            color: "#444",
+            visible: true,
+            width: 2,
+        },
+        grid: {
+            color: "#444",
+            width: 0.3,
+            visible: true,
+        },
+        stringName: {
+            color: "#444",
+            size: 5,
+            margin: 2,
+            visible: true,
+        },
+        baseFret: {
+            color: "#444",
+            size: 4,
+            margin: 1,
+            visible: true,
+        },
+        stringInfo: {
+            color: "#444",
+            size: 5,
+            margin: 2,
+            visible: true,
+        }
     };
 }

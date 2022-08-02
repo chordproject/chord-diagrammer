@@ -18,24 +18,25 @@ export class SvgBuilder {
         const baseBoxWidth =
             (stringsCount - 1) * this.settings.stringSpace +
             2 * (this.settings.dot.radius + this.settings.dot.borderWidth);
-        const baseFretTextWidth = baseFret <= 1 ? 0 : 9 + this.settings.neck.baseFretMargin;
+        const baseFretTextWidth = baseFret <= 1 ? 0 : 9 + this.settings.neck.baseFret.margin;
         const viewBoxWidth = baseBoxWidth + baseFretTextWidth;
 
         const baseBoxHeight = fretsOnChord * this.settings.fretSpace;
-        const stringNamesHeight = !this.settings.neck.stringNameVisible
+        const stringNamesHeight = !this.settings.neck.stringName.visible
             ? 0
-            : 10 + this.settings.neck.stringNameMargin;
-        const nutHeight = baseFret > 1 ? 0 : this.settings.neck.nutWidth;
+            : 10 + this.settings.neck.stringName.margin;
+        const nutHeight = baseFret > 1 ? 0 : this.settings.neck.nut.width;
         const stringInfoHeight =
             4 +
             this.settings.dot.openStringRadius +
-            this.settings.dot.stringInfoMargin +
+            this.settings.neck.stringInfo.margin +
             this.settings.dot.borderWidth;
         const viewBoxHeight = baseBoxHeight + stringNamesHeight + nutHeight + stringInfoHeight;
 
         var svg = Helper.createSVGElement("svg", {
             class: "chordproject-diagram",
             width: "100%",
+            "font-family": this.settings.fontFamily,
             preserveAspectRatio: "xMinYMin meet",
             viewBox: `0 0 ${viewBoxWidth} ${viewBoxHeight}`,
         });

@@ -57,19 +57,46 @@ builder.settings.dot.radius = 5; // change the dot radius
 builder.settings.neck.lineWidth = 0.8; //change the line width of the neck
 ```
 Here is all the available settings:
+- stringSpace
+- fretSpace
+- fontFamily
+- fingering:
+  - color
+  - margin
+  - size
+  - visible
 - dot:
   - radius
   - borderWith
+  - fillColor
+  - strokeColor
   - openStringRadius
-  - stringInfoMargin
 - neck
-  - lineWidth
-  - baseFretMargin
   - useRoman
-  - nutWidth
-  - stringNameVisible
-  - stringNameMargin
-
+  - color
+  - nut:
+    - color
+    - visible
+    - width
+  - stringName: 
+    - color
+    - size
+    - margin
+    - visible
+  - grid:
+    - color
+    - width
+    - visible
+  - baseFret:
+    - color
+    - size
+    - margin
+    - visible
+  - stringInfo:
+    - color
+    - size
+    - margin
+    - visible
 ## Demo
 
 1. Clone
