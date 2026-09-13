@@ -24,7 +24,6 @@ for (const entries of Object.values(source.chords ?? {})) {
                 frets: position.frets,
                 fingers: position.fingers,
                 baseFret: position.baseFret ?? 1,
-                barres: position.barres ?? [],
                 variation: index + 1,
             });
         });

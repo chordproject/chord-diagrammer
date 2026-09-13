@@ -37,7 +37,7 @@ export class Neck {
 
         // base fret
         let baseFretElement: SVGElement;
-        if (baseFret === 1) {
+        if (baseFret === 1 && this._settings.neck.nut.visible) {
             // nut rectangle
             baseFretElement = Helper.createSVGElement(
                 "path",

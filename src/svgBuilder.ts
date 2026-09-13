@@ -18,15 +18,19 @@ export class SvgBuilder {
         const baseBoxWidth =
             (stringsCount - 1) * this.settings.stringSpace +
             2 * (this.settings.dot.radius + this.settings.dot.borderWidth);
-        const baseFretTextWidth = baseFret <= 1 ? 0 : 9 + this.settings.neck.baseFret.margin;
+        const baseFretTextWidth = baseFret <= 1 || !this.settings.neck.baseFret.visible
+            ? 0
+            : 9 + this.settings.neck.baseFret.margin;
         const viewBoxWidth = baseBoxWidth + 2 * baseFretTextWidth;
 
         const baseBoxHeight = fretsOnChord * this.settings.fretSpace;
         const stringNamesHeight = !this.settings.neck.stringName.visible
             ? 0
             : 10 + this.settings.neck.stringName.margin;
-        const nutHeight = baseFret > 1 ? 0 : this.settings.neck.nut.width;
-        const stringInfoHeight =
+        const nutHeight = baseFret > 1 || !this.settings.neck.nut.visible ? 0 : this.settings.neck.nut.width;
+        const stringInfoHeight = !this.settings.neck.stringInfo.visible
+            ? 0
+            :
             4 +
             this.settings.dot.openStringRadius +
             this.settings.neck.stringInfo.margin +
@@ -64,7 +68,7 @@ export class SvgBuilder {
         this.onlyDots(chord).forEach((dotData) => {
             const dot = new Dot(this.settings);
             const finger = chord.fingers ? chord.fingers[dotData.fret] : 0;
-            rootElement.appendChild(dot.build(dotData.fret, dotData.value, finger, chord.baseFret === 1));
+            rootElement.appendChild(dot.build(dotData.fret, dotData.value, finger, baseFret === 1 && this.settings.neck.nut.visible));
         });
 
         svg.appendChild(rootElement);

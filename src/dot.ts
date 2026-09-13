@@ -12,6 +12,9 @@ export class Dot {
         const circleX = index * this._settings.stringSpace;
         const circleY = fret * this._settings.fretSpace - this._settings.fretSpace / 2;
         if (fret === -1) {
+            if (!this._settings.neck.stringInfo.visible) {
+                return Helper.createSVGElement("g");
+            }
             var textElement = Helper.createSVGElement(
                 "text",
                 {
@@ -29,6 +32,9 @@ export class Dot {
 
             return Helper.appendTextNode(textElement, "x");
         } else {
+            if (fret === 0 && !this._settings.neck.stringInfo.visible) {
+                return Helper.createSVGElement("g");
+            }
             let cy = circleY;
             let radius = this._settings.dot.radius;
             let fill = this._settings.dot.fillColor;
@@ -66,7 +72,7 @@ export class Dot {
                         textAnchor: "middle",
                         dominantBaseline: "middle",
                         x: circleX,
-                        y: circleY + 0.2,
+                        y: circleY + this._settings.fingering.margin / 5,
                     },
                     true
                 );

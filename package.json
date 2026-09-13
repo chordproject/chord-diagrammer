@@ -30,9 +30,9 @@
         "diagrams"
     ],
     "repository": {
-		"type": "git",
-		"url": "https://github.com/chordproject/chord-diagrammer"
-	},
+        "type": "git",
+        "url": "https://github.com/chordproject/chord-diagrammer"
+    },
     "author": "ChordProject (http://chordproject.com)",
     "scripts": {
         "dev": "vite demo --port 8082",
@@ -45,9 +45,9 @@
         "release": "npm run build && npm publish"
     },
     "devDependencies": {
+        "jsdom": "^29.1.1",
         "tsup": "^8.3.5",
         "typescript": "^5.8.3",
         "vite": "^6.0.7"
-    },
-    "dependencies": {}
+    }
 }
