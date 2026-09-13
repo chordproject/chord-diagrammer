@@ -5,6 +5,10 @@ A TypeScript library to generate SVG chord diagrams.
 Inspired by: https://github.com/tombatossals/react-chords.
 
 Part of [ChordProject](https://chordproject.com/)
+
+## Requirements
+
+- Node.js 20.19.0 or newer.
 ## Overview
 
 Generates SVG chord diagrams according to received specifications.
@@ -16,12 +20,14 @@ Generates SVG chord diagrams according to received specifications.
 `Chord Diagrammer` is on npm. To install run:
 
 ```sh
-$ npm i chordproject-editor
+$ npm i chordproject-diagrammer
 ```
 
 It's really easy to draw an SVG chord diagram:
 
 ```ts
+import { ChordDiagram, Instrument, SvgBuilder } from 'chordproject-diagrammer';
+
 // chord diagram definitions
 const chordDiagram = new ChordDiagram({
     frets: [-1, 0, 2, 2, 1, 0],
@@ -30,17 +36,88 @@ const chordDiagram = new ChordDiagram({
 });
 
 // instrument definitions
-const instrument = {
-    strings: 6,
-    fretsOnChord: 4,
-    name: "Guitar",
-    tunings: ["E", "A", "D", "G", "B", "E"],
-};
+const instrument = new Instrument('Guitar', 6, 4, ['E', 'A', 'D', 'G', 'B', 'E']);
 
-const generator = new Diagrammer(); // create an instance of Diagrammer
-var svg = generator.builder(chordDiagram, instrument); // build the svg
+const generator = new SvgBuilder();
+const svg = generator.build(chordDiagram, instrument);
 document.body.appendChild(svg); // add the svg in the html content (here the body)
 ```
+
+## Diagram collections
+
+`ChordDiagramCollection` resolves chord definitions supplied by the host application. The
+diagrammer does not fetch or own a database; pass a static dataset or another local source:
+
+```ts
+import { Chord, ChordDiagramCollection } from 'chordproject-diagrammer';
+
+const collection = new ChordDiagramCollection([
+  {
+    key: 'C',
+    type: 'major',
+    bass: '',
+    frets: [-1, 3, 2, 0, 1, 0],
+    fingers: [0, 3, 2, 0, 1, 0],
+    variation: 1,
+  },
+]);
+
+const diagrams = collection.get(new Chord('C', 'M', ''));
+```
+
+The collection normalizes common enharmonic and quality aliases, returns variations ordered by
+their `variation` number, and converts definitions into the library's `ChordDiagram` model.
+
+The repository includes a compact guitar dataset with the most accessible position first and
+additional playable variations after it. It is generated from
+[`tombatossals/chords-db`](https://github.com/tombatossals/chords-db), licensed under MIT; its
+license is included at `data/CHORDS_DB_LICENSE`. Project-specific voicings live in
+`data/supplemental-guitar.json`, so they survive upstream updates.
+
+To download the current upstream guitar database, regenerate the dataset, and validate collection
+and song coverage, run:
+
+```sh
+npm run update:guitar-data
+```
+
+The generated `data/guitar.json` is the only guitar data published with this package. The source
+database is never bundled into the client application.
+
+The collection returns no diagram when the source dataset has no explicit voicing for a chord
+variant. The consumer can then choose whether to hide the diagram or fall back to the base chord;
+the library does not invent a voicing for an uncovered slash chord.
+
+## Coverage analysis
+
+The HomenaJesus backup can be measured without reading Firebase:
+
+```sh
+npm run analyze:song-coverage
+```
+
+The command reads the backup's raw ChordPro content and compares valid chord tokens with the
+generated guitar dataset. It reports occurrences, unique chords, song coverage, and malformed
+tokens separately. For historical coverage analysis only, it expands sequences that users wrote
+inside one bracket, such as `[Am-G-F]`, into individual intended chords. This does not make that
+syntax valid ChordPro and does not change parser/editor validation.
+
+In the September 2026 HomenaJesus backup it found 8,558 audited chord occurrences, 109 unique
+chords, and 100% occurrence and song coverage. `G7/B`, previously uncovered, is supplied in the
+project's supplemental definitions.
+
+The same analysis can be run against the ChordProject backup by passing another songs file:
+
+```sh
+node scripts/analyze-song-coverage.mjs \
+  ../chordproject-client/backups/firestore-chordproject-app-latest/collections/songs.json \
+  data/guitar.json
+```
+
+The September 2026 ChordProject backup contains 14,636 audited chord occurrences across 158 songs.
+It has 98.60% occurrence coverage and 99.37% song coverage. Its remaining gaps are concentrated in
+advanced variants and slash chords such as `E7/B`, `D7/C`, `C7sus4/D`, and `Dadd9/F#`, rather than
+the common open chords used by the songs.
 
 A ChordDiagram is defined by:
 
@@ -109,7 +186,7 @@ $ npm i
 1.  Run in dev mode:
 
 ```sh
-$ npm run start
+$ npm run dev
 ```
 
 Open a browser and navigate to http://localhost:8082/ to load the demo.

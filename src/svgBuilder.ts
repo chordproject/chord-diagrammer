@@ -19,7 +19,7 @@ export class SvgBuilder {
             (stringsCount - 1) * this.settings.stringSpace +
             2 * (this.settings.dot.radius + this.settings.dot.borderWidth);
         const baseFretTextWidth = baseFret <= 1 ? 0 : 9 + this.settings.neck.baseFret.margin;
-        const viewBoxWidth = baseBoxWidth + baseFretTextWidth;
+        const viewBoxWidth = baseBoxWidth + 2 * baseFretTextWidth;
 
         const baseBoxHeight = fretsOnChord * this.settings.fretSpace;
         const stringNamesHeight = !this.settings.neck.stringName.visible

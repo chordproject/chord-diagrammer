@@ -1,14 +1,26 @@
 {
     "name": "chordproject-diagrammer",
-    "version": "0.1.9",
-    "main": "dist/chordproject-diagrammer.bundle.js",
-    "typings": "dist/index",
+    "version": "1.0.0",
+    "type": "module",
+    "module": "dist/index.js",
+    "main": "dist/index.cjs",
+    "types": "dist/index.d.ts",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js",
+            "require": "./dist/index.cjs"
+        },
+        "./data/guitar.json": "./data/guitar.json"
+    },
+    "sideEffects": false,
     "files": [
-        "dist"
+        "dist",
+        "data"
     ],
     "description": "A TypeScript library for generating SVG chord diagrams.",
     "engines": {
-        "node": ">=4.2.4"
+        "node": ">=20.19.0"
     },
     "keywords": [
         "chordpro",
@@ -23,18 +35,19 @@
 	},
     "author": "ChordProject (http://chordproject.com)",
     "scripts": {
-        "start": "webpack serve --config webpack.dev.js",
-        "build": "webpack --config webpack.prod.js",
+        "dev": "vite demo --port 8082",
+        "build": "tsup src/index.ts --format esm,cjs --dts --sourcemap --clean",
+        "build:demo": "vite build demo --outDir ../diagrammer-demo-dist",
+        "update:guitar-data": "node scripts/generate-guitar-dataset.mjs && npm run test:collection && npm run analyze:song-coverage",
+        "test:collection": "npm run build && node scripts/test-collection.mjs",
+        "analyze:song-coverage": "npm run build && node scripts/analyze-song-coverage.mjs",
+        "suggest:chord-corrections": "npm run build && node scripts/suggest-chord-corrections.mjs",
         "release": "npm run build && npm publish"
     },
     "devDependencies": {
-        "clean-webpack-plugin": "^3.0.0",
-        "html-webpack-plugin": "^5.2.0",
-        "ts-loader": "^8.0.17",
-        "typescript": "^4.2.2",
-        "webpack": "^5.24.2",
-        "webpack-cli": "^4.5.0",
-        "webpack-dev-server": "^3.11.2"
+        "tsup": "^8.3.5",
+        "typescript": "^5.8.3",
+        "vite": "^6.0.7"
     },
     "dependencies": {}
 }

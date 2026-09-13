@@ -1,11 +1,13 @@
 {
     "compilerOptions": {
-        "outDir": "./dist",
-        "target": "ESNext",
+        "target": "ES2022",
         "sourceMap": true,
         "strict": true,
         "module": "ESNext",
-        "declaration": true
+        "moduleResolution": "Bundler",
+        "isolatedModules": true,
+        "noEmit": true,
+        "lib": ["ES2022", "DOM"]
     },
     "include": ["./src/**/*"],
     "exclude": ["node_modules", "**/*.spec.ts"]

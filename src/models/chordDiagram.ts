@@ -8,6 +8,7 @@ export class ChordDiagram {
     frets: number[] = [];
     fingers: number[] = [];
     baseFret: number = 1;
+    variation?: number;
 
     constructor(init?: Partial<ChordDiagram>) {
         Object.assign(this, init);
