@@ -88,36 +88,11 @@ The collection returns no diagram when the source dataset has no explicit voicin
 variant. The consumer can then choose whether to hide the diagram or fall back to the base chord;
 the library does not invent a voicing for an uncovered slash chord.
 
-## Coverage analysis
+## Song coverage analysis
 
-The HomenaJesus backup can be measured without reading Firebase:
-
-```sh
-npm run analyze:song-coverage
-```
-
-The command reads the backup's raw ChordPro content and compares valid chord tokens with the
-generated guitar dataset. It reports occurrences, unique chords, song coverage, and malformed
-tokens separately. For historical coverage analysis only, it expands sequences that users wrote
-inside one bracket, such as `[Am-G-F]`, into individual intended chords. This does not make that
-syntax valid ChordPro and does not change parser/editor validation.
-
-In the September 2026 HomenaJesus backup it found 8,558 audited chord occurrences, 109 unique
-chords, and 100% occurrence and song coverage. `G7/B`, previously uncovered, is supplied in the
-project's supplemental definitions.
-
-The same analysis can be run against the ChordProject backup by passing another songs file:
-
-```sh
-node scripts/analyze-song-coverage.mjs \
-  ../chordproject-client/backups/firestore-chordproject-app-latest/collections/songs.json \
-  data/guitar.json
-```
-
-The September 2026 ChordProject backup contains 14,636 audited chord occurrences across 158 songs.
-It has 98.60% occurrence coverage and 99.37% song coverage. Its remaining gaps are concentrated in
-advanced variants and slash chords such as `E7/B`, `D7/C`, `C7sus4/D`, and `Dadd9/F#`, rather than
-the common open chords used by the songs.
+Coverage of application song backups belongs to the consuming client, not this library. In
+`chordproject-client`, run `npm run analyze:song-coverage` to compare a local Firestore backup
+against this package's published `data/guitar.json`.
 
 A ChordDiagram is defined by:
 

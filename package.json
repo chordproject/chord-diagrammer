@@ -38,9 +38,8 @@
         "dev": "vite demo --port 8082",
         "build": "tsup src/index.ts --format esm,cjs --dts --sourcemap --clean",
         "build:demo": "vite build demo --outDir ../diagrammer-demo-dist",
-        "update:guitar-data": "node scripts/generate-guitar-dataset.mjs && npm run test:collection && npm run analyze:song-coverage",
+        "update:guitar-data": "node scripts/generate-guitar-dataset.mjs && npm run test:collection",
         "test:collection": "npm run build && node scripts/test-collection.mjs",
-        "analyze:song-coverage": "npm run build && node scripts/analyze-song-coverage.mjs",
         "suggest:chord-corrections": "npm run build && node scripts/suggest-chord-corrections.mjs",
         "release": "npm run build && npm publish"
     },
