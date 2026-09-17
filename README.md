@@ -20,13 +20,13 @@ Generates SVG chord diagrams according to received specifications.
 `Chord Diagrammer` is on npm. To install run:
 
 ```sh
-$ npm i chordproject-diagrammer
+$ npm i @chordproject/diagrammer
 ```
 
 It's really easy to draw an SVG chord diagram:
 
 ```ts
-import { ChordDiagram, Instrument, SvgBuilder } from 'chordproject-diagrammer';
+import { ChordDiagram, Instrument, SvgBuilder } from '@chordproject/diagrammer';
 
 // chord diagram definitions
 const chordDiagram = new ChordDiagram({
@@ -49,7 +49,7 @@ document.body.appendChild(svg); // add the svg in the html content (here the bod
 diagrammer does not fetch or own a database; pass a static dataset or another local source:
 
 ```ts
-import { Chord, ChordDiagramCollection } from 'chordproject-diagrammer';
+import { Chord, ChordDiagramCollection } from '@chordproject/diagrammer';
 
 const collection = new ChordDiagramCollection([
   {
