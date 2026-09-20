@@ -42,6 +42,10 @@ export interface NeckSettings {
     stringName: TextSettings,
     baseFret:TextSettings,
     stringInfo: TextSettings,
+    strings: {
+        color: string;
+        widths: number[];
+    },
 }
 
 export class Settings {
@@ -73,6 +77,10 @@ export class Settings {
             color: "#444",
             width: 0.3,
             visible: true,
+        },
+        strings: {
+            color: "#444",
+            widths: [0.9, 0.7, 0.55, 0.4, 0.3, 0.2],
         },
         stringName: {
             color: "#444",

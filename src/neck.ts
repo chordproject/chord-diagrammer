@@ -23,17 +23,31 @@ export class Neck {
         });
         neckElement.appendChild(backgroundElement);
 
-        var pathElement = Helper.createSVGElement(
+        const gridElement = Helper.createSVGElement(
             "path",
             {
                 stroke: this._settings.neck.grid.visible ? this._settings.neck.grid.color :  "transparent",
                 strokeWidth: this._settings.neck.grid.width,
                 strokeLinecap: "square",
-                d: this.getNeckPath(stringsCount, fretsOnChord),
+                d: this.getHorizontalPath(stringsCount, fretsOnChord),
             },
             true
         );
-        neckElement.appendChild(pathElement);
+        neckElement.appendChild(gridElement);
+
+        for (let stringIndex = 0; stringIndex < stringsCount; stringIndex++) {
+            const stringElement = Helper.createSVGElement(
+                "path",
+                {
+                    stroke: this._settings.neck.strings.color,
+                    strokeWidth: this._settings.neck.strings.widths[stringIndex] ?? this._settings.neck.grid.width,
+                    strokeLinecap: "round",
+                    d: this.getVerticalPath(stringIndex, fretsOnChord),
+                },
+                true
+            );
+            neckElement.appendChild(stringElement);
+        }
 
         // base fret
         let baseFretElement: SVGElement;
@@ -91,7 +105,7 @@ export class Neck {
                     },
                     true
                 );
-                tuningGroupElement.appendChild(Helper.appendTextNode(textElement, note));
+                tuningGroupElement.appendChild(Helper.appendNoteName(textElement, note, "-0.20em"));
             });
             neckElement.appendChild(tuningGroupElement);
         }
@@ -131,14 +145,13 @@ export class Neck {
         return `M ${pos * this._settings.stringSpace} 0 V ${fretsCount * this._settings.fretSpace}`;
     }
 
-    private getNeckPath(stringsCount: number, fretsOnChord: number): string {
+    private getHorizontalPath(stringsCount: number, fretsOnChord: number): string {
         return Array.apply(null, Array(fretsOnChord + 1))
             .map((_: any, pos: number) => this.getNeckHorizonalLine(pos, stringsCount))
-            .join(" ")
-            .concat(
-                Array.apply(null, Array(stringsCount))
-                    .map((_: any, pos: number) => this.getNeckVerticalLine(pos, fretsOnChord))
-                    .join(" ")
-            );
+            .join(" ");
+    }
+
+    private getVerticalPath(stringIndex: number, fretsOnChord: number): string {
+        return this.getNeckVerticalLine(stringIndex, fretsOnChord);
     }
 }
