@@ -38,6 +38,8 @@ assert.equal(svg.querySelectorAll('circle').length, 3);
 assert.equal(staffSvg.querySelector('g').querySelectorAll('line').length, 6);
 assert.equal(staffSvg.querySelector('g').querySelectorAll('ellipse').length, 3);
 assert.equal(staffSvg.querySelector('g').querySelectorAll('.chord-staff-label').length, 3);
+assert.equal(staffSvg.querySelectorAll('.chord-staff-clef').length, 1);
+assert.equal(staffSvg.textContent?.includes('𝄞'), false);
 assert.equal(staffSvg.querySelector('g').getAttribute('transform'), 'translate(0, 3)');
 assert.ok(Math.abs(Math.abs(Number(fSharpMinorSeventhStaff.querySelectorAll('ellipse')[0].getAttribute('cx')) - Number(fSharpMinorSeventhStaff.querySelectorAll('ellipse')[1].getAttribute('cx'))) - 4) < 0.001);
 assert.deepEqual([...fSharpMinorSeventhStaff.querySelectorAll('ellipse')].map((notehead) => notehead.getAttribute('cx')), ['29', '25', '25', '25']);

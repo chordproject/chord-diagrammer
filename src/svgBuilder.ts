@@ -5,6 +5,7 @@ import { Neck } from "./neck";
 import { Barre } from "./barre";
 import { Dot } from "./dot";
 import { Settings } from "./settings";
+import { TREBLE_CLEF_PATH } from "./assets/trebleClef";
 
 export class SvgBuilder {
     settings: Settings = new Settings();
@@ -147,14 +148,15 @@ export class SvgBuilder {
             }, true));
         }
 
-        const clef = Helper.createSVGElement("text", {
-            x: 1,
-            y: 10,
+        const clef = Helper.createSVGElement("path", {
+            class: "chord-staff-clef",
+            d: TREBLE_CLEF_PATH,
             fill: color,
-            fontSize: 24,
-            "font-family": "serif",
+            stroke: color,
+            strokeWidth: 1,
+            transform: "translate(-2.2 -7.8) scale(0.145)",
         }, true);
-        staff.appendChild(Helper.appendTextNode(clef, "𝄞"));
+        staff.appendChild(clef);
 
         const notes = [...new Set(stringNames.filter((note) => note !== "x"))]
             .map((note) => ({ note, position: this.getStaffPosition(note) }))
