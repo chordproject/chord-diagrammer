@@ -132,18 +132,19 @@ export class SvgBuilder {
             class: "chord-staff",
             transform: `translate(${x}, ${y})`,
         });
-        const color = this.settings.neck.stringName.color;
+        const color = "currentColor";
         const lineSpacing = 2.2;
         const staffWidth = 34;
         const top = 0;
 
         for (let line = 0; line < 5; line++) {
             staff.appendChild(Helper.createSVGElement("line", {
+                class: "chord-staff-line",
                 x1: 0,
                 y1: top + line * lineSpacing,
                 x2: staffWidth,
                 y2: top + line * lineSpacing,
-                stroke: color,
+                stroke: "var(--staff-base-color, currentColor)",
                 strokeWidth: 0.35,
             }, true));
         }
@@ -151,8 +152,8 @@ export class SvgBuilder {
         const clef = Helper.createSVGElement("path", {
             class: "chord-staff-clef",
             d: TREBLE_CLEF_PATH,
-            fill: color,
-            stroke: color,
+            fill: "var(--staff-clef-color, currentColor)",
+            stroke: "var(--staff-clef-color, currentColor)",
             strokeWidth: 1,
             transform: "translate(-2.2 -7.8) scale(0.145)",
         }, true);
@@ -169,18 +170,19 @@ export class SvgBuilder {
             const adjacentToNext = index < notes.length - 1 && notes[index + 1].position - position === 1;
             adjacentRunIndex = adjacentToPrevious ? adjacentRunIndex + 1 : 0;
             const x = adjacentToPrevious || adjacentToNext
-                ? noteX + (adjacentRunIndex % 2 === 0 ? 2 : -2)
-                : noteX - 2;
+                ? noteX + (adjacentRunIndex % 2 === 0 ? 1.7 : -1.7)
+                : noteX - 1.7;
             return { note, position, x, y };
         });
 
         noteLayouts.forEach(({ note, x, y }) => {
             const notehead = Helper.createSVGElement("ellipse", {
+                class: "chord-staff-notehead",
                 cx: x,
                 cy: y,
                 rx: 2.05,
                 ry: 1.22,
-                fill: color,
+                fill: "var(--staff-figure-color, currentColor)",
                 transform: `rotate(-20 ${x} ${y})`,
             }, true);
             staff.appendChild(notehead);
@@ -202,8 +204,8 @@ export class SvgBuilder {
                 class: "chord-staff-accidental",
                 dataLane: lane,
                 x: noteX - 4.5 - lane * 4.2,
-                y: y + 1.4,
-                fill: color,
+                y: y + (accidentalSymbol === "♭" ? 0.9 : 1.4),
+                fill: "var(--staff-figure-color, currentColor)",
                 fontSize: accidentalSymbol === "𝄪" ? 6.2 : 4.6,
                 textAnchor: "end",
             }, true);
@@ -217,9 +219,9 @@ export class SvgBuilder {
                 x1: noteX,
                 y1: Math.min(...noteYs) - 5,
                 x2: noteX,
-                y2: Math.max(...noteYs) + 0.3,
-                stroke: color,
-                strokeWidth: 0.4,
+                y2: Math.max(...noteYs) - 0.15,
+                stroke: "var(--staff-figure-color, currentColor)",
+                strokeWidth: 0.5,
             }, true));
         }
 
@@ -245,7 +247,7 @@ export class SvgBuilder {
                 class: "chord-staff-label",
                 x: labelX,
                 y: labelY + labelFontSize * 0.375,
-                fill: color,
+                fill: "var(--staff-base-color, currentColor)",
                 fontSize: labelFontSize,
             }, true);
             staff.appendChild(Helper.appendNoteName(label, this.formatNoteName(note), "0.12em", "1.9em"));
