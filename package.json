@@ -33,6 +33,9 @@
         "type": "git",
         "url": "https://github.com/chordproject/chord-diagrammer"
     },
+    "publishConfig": {
+        "registry": "https://registry.npmjs.org/"
+    },
     "author": "ChordProject (http://chordproject.com)",
     "license": "AGPL-3.0-only",
     "scripts": {

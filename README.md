@@ -125,6 +125,14 @@ npm run test:collection
 
 The demo runs at [http://localhost:8082](http://localhost:8082).
 
+## Publishing
+
+Publishing uses npm Trusted Publishing from GitHub Actions; no npm token is stored in GitHub.
+In npm package settings, add a GitHub Actions trusted publisher for organization `chordproject`,
+repository `chord-diagrammer`, and workflow file `publish.yml`. After merging a version bump,
+push a matching tag such as `v1.1.4`. The workflow verifies the tag against `package.json`, runs
+the build and collection tests, then publishes to npmjs.org using OIDC.
+
 ## Contributing
 
 Issues and pull requests are welcome. Join the community on
