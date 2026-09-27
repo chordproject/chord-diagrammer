@@ -204,7 +204,7 @@ export class SvgBuilder {
                 class: "chord-staff-accidental",
                 dataLane: lane,
                 x: noteX - 4.5 - lane * 4.2,
-                y: y + (accidentalSymbol === "♭" ? 0.9 : 1.4),
+                y: y + (accidentalSymbol === "♭" || accidentalSymbol === "𝄫" ? 0.9 : 1.4),
                 fill: "var(--staff-figure-color, currentColor)",
                 fontSize: accidentalSymbol === "𝄪" ? 6.2 : 4.6,
                 textAnchor: "end",
@@ -261,7 +261,7 @@ export class SvgBuilder {
         if (accidental === "#") return "♯";
         if (accidental === "##") return "𝄪";
         if (accidental === "b") return "♭";
-        if (accidental === "bb") return "♭♭";
+        if (accidental === "bb") return "𝄫";
         return undefined;
     }
 

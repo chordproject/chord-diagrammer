@@ -1,9 +1,261 @@
-#container {
-    display: flex;
-    flex-direction: row;
+* {
+    box-sizing: border-box;
 }
 
-.diagram {
-    max-width: 30em;
-    margin: 2em;
+body {
+    margin: 0;
+    background: #eceeea;
+    color: #202723;
+    font-family: "Avenir Next", Avenir, "Segoe UI", sans-serif;
+}
+
+.showcase {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 52px 40px 64px;
+}
+
+.showcase-header {
+    margin-bottom: 30px;
+}
+
+.eyebrow {
+    margin: 0 0 10px;
+    color: #617b68;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+h1 {
+    margin: 0;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 40px;
+    font-weight: 400;
+}
+
+.lede {
+    margin: 9px 0 0;
+    color: #68716b;
+    font-size: 15px;
+}
+
+#container {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+}
+
+.theme-panel {
+    min-width: 0;
+    overflow: hidden;
+    border: 1px solid var(--panel-border);
+    border-radius: 10px;
+    background: var(--panel-bg);
+    color: var(--panel-fg);
+    box-shadow: 0 12px 28px rgb(32 39 35 / 8%);
+}
+
+.theme-panel.light {
+    --panel-bg: #fffefa;
+    --panel-fg: #26332b;
+    --panel-border: #d8ddd7;
+    --muted: #78827a;
+    --grid: #b8c2b9;
+    --nut: #48584c;
+    --dot: #405e4a;
+    --dot-stroke: #324b3a;
+    --finger: #fffefa;
+    --labels: #69766d;
+    --staff: #6b746d;
+}
+
+.theme-panel.dark {
+    --panel-bg: #202723;
+    --panel-fg: #eef2ed;
+    --panel-border: #414c44;
+    --muted: #abb6ad;
+    --grid: #647168;
+    --nut: #cad2cb;
+    --dot: #a7c6a8;
+    --dot-stroke: #dce8dc;
+    --finger: #202723;
+    --labels: #c2ccc3;
+    --staff: #b7c1b8;
+}
+
+.panel-topline {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    padding: 21px 24px 0;
+}
+
+.panel-topline h2 {
+    margin: 0;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 27px;
+    font-weight: 400;
+}
+
+.panel-topline span {
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.chord-example {
+    padding: 20px 34px 24px;
+}
+
+.chord-title {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    padding-bottom: 2px;
+}
+
+.chord-name {
+    margin: 0;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 38px;
+    line-height: 1;
+}
+
+.chord-quality {
+    margin-left: 3px;
+    font-size: 20px;
+}
+
+.variation {
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.staff-preview {
+    height: 132px;
+    margin: 0 auto 6px;
+    color: var(--staff);
+}
+
+.staff-preview svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.staff-preview svg .chord-staff-line {
+    stroke: var(--staff-base-color, currentColor);
+}
+
+.staff-preview svg .chord-staff-clef {
+    fill: var(--staff-clef-color, currentColor);
+    stroke: var(--staff-clef-color, currentColor);
+}
+
+.staff-preview svg .chord-staff-notehead {
+    fill: var(--staff-figure-color, currentColor);
+}
+
+.theme-panel.light .staff-preview {
+    --staff-base-color: #b8c2b9;
+    --staff-clef-color: #617b68;
+    --staff-figure-color: #405e4a;
+}
+
+.theme-panel.dark .staff-preview {
+    --staff-base-color: #647168;
+    --staff-clef-color: #c2ccc3;
+    --staff-figure-color: #a7c6a8;
+}
+
+.fretboard-preview {
+    width: min(100%, 280px);
+    margin: 0 auto;
+}
+
+.fretboard-preview svg {
+    display: block;
+    width: 100%;
+    color: var(--panel-fg);
+}
+
+.theme-panel .neck path[stroke],
+.theme-panel .neck path[stroke-width] {
+    stroke: var(--grid);
+}
+
+.theme-panel .neck path[stroke-linecap="round"] {
+    stroke: var(--labels);
+}
+
+.theme-panel .neck path[stroke-linejoin="round"] {
+    stroke: var(--nut);
+}
+
+.theme-panel .neck text {
+    fill: var(--labels);
+}
+
+.theme-panel .neck circle {
+    fill: var(--dot);
+    stroke: var(--dot-stroke);
+}
+
+.theme-panel .neck g text {
+    fill: var(--finger);
+}
+
+.theme-panel .dot-barre {
+    fill: var(--dot);
+    stroke: var(--dot-stroke);
+}
+
+.note-list {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    margin: 12px 0 0;
+    color: var(--panel-fg);
+}
+
+.note-list span {
+    margin-right: 5px;
+    color: var(--muted);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1.1px;
+}
+
+.note-list strong {
+    display: grid;
+    width: 28px;
+    height: 28px;
+    place-items: center;
+    border: 1px solid var(--panel-border);
+    border-radius: 50%;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+@media (max-width: 720px) {
+    .showcase {
+        padding: 34px 18px 40px;
+    }
+
+    h1 {
+        font-size: 32px;
+    }
+
+    #container {
+        grid-template-columns: 1fr;
+    }
+
+    .chord-example {
+        padding: 18px 20px 22px;
+    }
+
+    .staff-preview {
+        height: 110px;
+    }
 }

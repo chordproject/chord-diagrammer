@@ -33,6 +33,8 @@ const stackedAccidentalsStaff = builder.buildStaff(new ChordDiagram(), guitar, [
 const cThirteenthStaff = builder.buildStaff(new ChordDiagram(), guitar, ['C', 'E', 'G', 'Bb', 'D', 'F', 'A']);
 const cMajorStaff = builder.buildStaff(new ChordDiagram(), guitar, ['C', 'E', 'G']);
 const aFlatMajorStaff = builder.buildStaff(new ChordDiagram(), guitar, ['Ab', 'C', 'Eb']);
+const bFlatStaff = builder.buildStaff(new ChordDiagram(), guitar, ['Bb']);
+const bDoubleFlatStaff = builder.buildStaff(new ChordDiagram(), guitar, ['Bbb']);
 assert.equal(svg.querySelectorAll('path').length, 7);
 assert.equal(staffSvg.getAttribute('viewBox'), '-8 -12 50 30');
 assert.equal(svg.querySelectorAll('circle').length, 3);
@@ -60,6 +62,9 @@ assert.equal(eSharpNinthDiagram.querySelector('.neck tspan')?.getAttribute('dy')
 assert.deepEqual([...stackedAccidentalsStaff.querySelectorAll('.chord-staff-accidental')].map((element) => element.getAttribute('data-lane')), ['0', '1', '2']);
 assert.deepEqual([...stackedAccidentalsStaff.querySelectorAll('.chord-staff-accidental')].map((element) => element.getAttribute('x')), ['22.5', '18.3', '14.1']);
 assert.deepEqual([...aFlatMajorStaff.querySelectorAll('.chord-staff-accidental')].map((element) => element.getAttribute('y')), ['9.9', '6.6']);
+assert.equal(bDoubleFlatStaff.querySelector('.chord-staff-accidental')?.textContent, '𝄫');
+assert.equal([...bDoubleFlatStaff.querySelector('.chord-staff-accidental')?.textContent ?? ''].length, 1);
+assert.equal(bDoubleFlatStaff.querySelector('.chord-staff-accidental')?.getAttribute('y'), bFlatStaff.querySelector('.chord-staff-accidental')?.getAttribute('y'));
 assert.deepEqual([...cThirteenthStaff.querySelectorAll('.chord-staff-label')].map((label) => label.getAttribute('font-size')), Array(7).fill('2.6'));
 assert.ok(Number(cThirteenthStaff.querySelectorAll('.chord-staff-label')[1].getAttribute('y')) - Number(cThirteenthStaff.querySelectorAll('.chord-staff-label')[0].getAttribute('y')) >= 3);
 assert.equal(Number(cMajorStaff.querySelectorAll('.chord-staff-label')[1].getAttribute('y')) - Number(cMajorStaff.querySelectorAll('.chord-staff-label')[0].getAttribute('y')), 4);
