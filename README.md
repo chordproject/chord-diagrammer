@@ -129,9 +129,11 @@ The demo runs at [http://localhost:8082](http://localhost:8082).
 
 Publishing uses npm Trusted Publishing from GitHub Actions; no npm token is stored in GitHub.
 In npm package settings, add a GitHub Actions trusted publisher for organization `chordproject`,
-repository `chordproject-diagrammer`, and workflow file `publish.yml`. After merging a version bump,
-push a matching tag such as `v1.1.4`. The workflow verifies the tag against `package.json`, runs
-the build and collection tests, then publishes to npmjs.org using OIDC.
+repository `chordproject-diagrammer`, and workflow file `publish.yml`. After merging changes,
+run `npm run release` for a patch, or `npm run release:minor` / `npm run release:major`. These
+commands run the collection tests, bump the version, commit and tag it, then push; GitHub Actions
+publishes to npmjs.org using OIDC. For the already-prepared first release `1.1.3`, run
+`npm run release:current` once instead of bumping again. The tag must match `package.json`.
 
 ## Contributing
 

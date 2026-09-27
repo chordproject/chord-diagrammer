@@ -45,7 +45,11 @@
         "update:guitar-data": "node scripts/generate-guitar-dataset.mjs && npm run test:collection",
         "test:collection": "npm run build && node scripts/test-collection.mjs",
         "suggest:chord-corrections": "npm run build && node scripts/suggest-chord-corrections.mjs",
-        "release": "npm run build && npm publish"
+        "release": "npm run release:patch",
+        "release:patch": "npm run test:collection && npm version patch && git push --follow-tags",
+        "release:minor": "npm run test:collection && npm version minor && git push --follow-tags",
+        "release:major": "npm run test:collection && npm version major && git push --follow-tags",
+        "release:current": "npm run test:collection && git tag -a v$npm_package_version -m \"Release v$npm_package_version\" && git push --follow-tags"
     },
     "devDependencies": {
         "jsdom": "^29.1.1",
