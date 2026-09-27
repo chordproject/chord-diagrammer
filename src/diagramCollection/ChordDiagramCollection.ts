@@ -25,7 +25,9 @@ export class ChordDiagramCollection {
         const type = ChordAliases.type(chord.type);
         const bass = ChordAliases.key(chord.bass || "");
 
-        return this.definitions
+        const uniqueDefinitions = new Map<string, DiagramDefinition>();
+
+        this.definitions
             .filter((definition) => {
                 return (
                     ChordAliases.key(definition.key) === key &&
@@ -34,6 +36,14 @@ export class ChordDiagramCollection {
                 );
             })
             .sort((left, right) => (left.variation ?? 0) - (right.variation ?? 0))
+            .forEach((definition) => {
+                const positionKey = `${definition.baseFret ?? this.getBaseFret(definition.frets)}:${definition.frets.join(",")}`;
+                if (!uniqueDefinitions.has(positionKey)) {
+                    uniqueDefinitions.set(positionKey, definition);
+                }
+            });
+
+        return [...uniqueDefinitions.values()]
             .map((definition) => {
                 return new ChordDiagram({
                     frets: definition.frets,

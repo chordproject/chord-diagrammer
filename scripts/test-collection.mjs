@@ -9,6 +9,13 @@ globalThis.document = dom.window.document;
 const definitions = JSON.parse(await readFile(new URL('../data/guitar.json', import.meta.url), 'utf8'));
 const collection = new ChordDiagramCollection(definitions);
 
+const duplicatePositionCollection = new ChordDiagramCollection([
+	{ key: 'G', type: 'sus4', frets: [3, 3, 1, 1, 1, 3], variation: 1 },
+	{ key: 'G', type: 'sus4', frets: [3, 3, 1, 1, 1, 3], variation: 2 },
+	{ key: 'G', type: 'sus4', frets: [8, 8, 6, 6, 6, 8], variation: 3 },
+]);
+assert.equal(duplicatePositionCollection.get(new Chord('G', 'sus4')).length, 2);
+
 assert.equal(collection.get(new Chord('C', 'M')).length > 0, true);
 assert.equal(collection.get(new Chord('A', 'm')).length > 0, true);
 assert.equal(collection.get(new Chord('A', 'm', 'E')).length > 0, true);
