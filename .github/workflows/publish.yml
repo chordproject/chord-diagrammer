@@ -19,7 +19,7 @@ jobs:
           node-version: 24
           registry-url: https://registry.npmjs.org
           package-manager-cache: false
-      - run: npm ci
+      - run: npm ci --registry=https://registry.npmjs.org/ --replace-registry-host=always
       - run: npm run test:collection
       - name: Verify tag matches package version
         run: |
